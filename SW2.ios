@@ -1,9 +1,9 @@
 SW2#sh run
 Building configuration...
 
-Current configuration : 3555 bytes
+Current configuration : 3614 bytes
 !
-! Last configuration change at 18:37:19 UTC Mon Mar 24 2025
+! Last configuration change at 18:39:27 UTC Thu Oct 9 2025
 !
 version 15.2
 service timestamps debug datetime msec
@@ -114,6 +114,9 @@ interface GigabitEthernet3/2
 interface GigabitEthernet3/3
  negotiation auto
 !
+interface Vlan10
+ ip address 172.16.10.21 255.255.255.128
+!
 ip forward-protocol nd
 !
 ip http server
@@ -164,3 +167,5 @@ line vty 0 4
 !
 !
 end
+
+SW2#

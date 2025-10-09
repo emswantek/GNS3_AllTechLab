@@ -2,6 +2,7 @@
 
 copy run start
 
+
 term leng 0 
 
 show isis neighbor
@@ -10,5 +11,12 @@ show clns interface
 
 show run | section isis
 
+
+
+term leng 0
+
+
+
+sh run
 
 
