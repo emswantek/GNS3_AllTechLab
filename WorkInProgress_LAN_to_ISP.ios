@@ -475,3 +475,127 @@ interface GigabitEthernet6/0
  negotiation auto
 end
 
+
+!DC-VPC-SW1
+configure terminal
+vlan 241
+  name LAN2-SW1-NET
+vlan 242
+  name LAN2-SW2-NET
+vlan 243
+  name LAN2-SW3-NET
+vlan 251
+  name MGMT
+exit
+
+interface vlan241
+  description LAN2-SW1-NET
+  no shutdown
+  ip address 172.31.241.2/24
+  hsrp 241
+    priority 110
+    preempt
+    ip 172.31.241.1
+  no shutdown
+
+interface vlan242
+  description LAN2-SW2-NET
+  no shutdown
+  ip address 172.31.242.2/24
+  hsrp 242
+    priority 110
+    preempt
+    ip 172.31.242.1
+  no shutdown
+
+interface vlan243
+  description LAN2-SW3-NET
+  no shutdown
+  ip address 172.31.243.2/24
+  hsrp 243
+    priority 110
+    preempt
+    ip 172.31.243.1
+  no shutdown
+
+interface vlan251
+  description MGMT-NET
+  no shutdown
+  ip address 172.31.251.2/24
+  hsrp 251
+    priority 110
+    preempt
+    ip 172.31.251.1
+  no shutdown
+
+
+
+
+interface vlan241
+  description LAN2-SW1-NET
+  no shutdown
+  ip address 172.31.241.3/24
+  hsrp 241
+    priority 100
+    preempt
+    ip 172.31.241.1
+  no shutdown
+
+interface vlan242
+  description LAN2-SW2-NET
+  no shutdown
+  ip address 172.31.242.3/24
+  hsrp 242
+    priority 100
+    preempt
+    ip 172.31.242.1
+  no shutdown
+
+interface vlan243
+  description LAN2-SW3-NET
+  no shutdown
+  ip address 172.31.243.3/24
+  hsrp 243
+    priority 100
+    preempt
+    ip 172.31.243.1
+  no shutdown
+
+interface vlan251
+  description MGMT-NET
+  no shutdown
+  ip address 172.31.251.3/24
+  hsrp 251
+    priority 100
+    preempt
+    ip 172.31.251.1
+  no shutdown
+
+
+router eigrp 65535
+    eigrp router-id 172.31.255.5
+    network 172.31.241.0/24
+    network 172.31.242.0/24
+    network 172.31.243.0/24
+    network 172.31.251.0/24
+    no passive-interface default
+
+router eigrp 65535
+    eigrp router-id 172.31.255.4
+    network 172.31.241.0/24
+    network 172.31.242.0/24
+    network 172.31.243.0/24
+    network 172.31.251.0/24
+    no passive-interface default
+
+R2
+eigrp router-id 172.31.255.2
+
+R3
+eigrp router-id 172.31.255.3
+
+CE2
+eigrp router-id 172.31.255.1
+
+copy run start
+
