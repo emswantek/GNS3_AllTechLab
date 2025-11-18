@@ -57,11 +57,11 @@ C        10.0.0.0/30 is directly connected, GigabitEthernet1/0
 L        10.0.0.2/32 is directly connected, GigabitEthernet1/0
       172.16.0.0/16 is variably subnetted, 6 subnets, 3 masks
 C        172.16.0.2/32 is directly connected, Loopback0
-O IA     172.16.10.0/24 [110/2] via 192.168.1.1, 02:01:51, GigabitEthernet2/0
+O IA     172.16.10.0/24 [110/2] via 192.168.1.1, 03:21:49, GigabitEthernet2/0
 S        172.16.10.0/25 [1/0] via 192.168.1.1
-O IA     172.16.11.0/24 [110/2] via 192.168.1.1, 02:01:51, GigabitEthernet2/0
-O IA     172.16.22.0/24 [110/2] via 192.168.1.1, 02:01:51, GigabitEthernet2/0
-O IA     172.16.33.0/24 [110/2] via 192.168.1.1, 02:01:51, GigabitEthernet2/0
+O IA     172.16.11.0/24 [110/2] via 192.168.1.1, 03:21:49, GigabitEthernet2/0
+O IA     172.16.22.0/24 [110/2] via 192.168.1.1, 03:21:49, GigabitEthernet2/0
+O IA     172.16.33.0/24 [110/2] via 192.168.1.1, 03:21:49, GigabitEthernet2/0
       192.168.1.0/24 is variably subnetted, 2 subnets, 2 masks
 C        192.168.1.0/30 is directly connected, GigabitEthernet2/0
 L        192.168.1.2/32 is directly connected, GigabitEthernet2/0
@@ -69,7 +69,7 @@ CE1#
 CE1#show ip ospf neighbor
 
 Neighbor ID     Pri   State           Dead Time   Address         Interface
-172.16.0.1        1   FULL/BDR        00:00:31    192.168.1.1     GigabitEthernet2/0
+172.16.0.1        1   FULL/BDR        00:00:38    192.168.1.1     GigabitEthernet2/0
 CE1#
 CE1#sh ip ospf int br
 Interface    PID   Area            IP Address/Mask    Cost  State Nbrs F/C
@@ -82,21 +82,21 @@ CE1#show ip ospf database
                 Router Link States (Area 0)
 
 Link ID         ADV Router      Age         Seq#       Checksum Link count
-172.16.0.1      172.16.0.1      1326        0x80000005 0x00B129 1
-172.16.0.2      172.16.0.2      1259        0x80000005 0x00AC2C 1
+172.16.0.1      172.16.0.1      272         0x80000008 0x00AB2C 1
+172.16.0.2      172.16.0.2      1           0x80000008 0x00A62F 1
 
                 Net Link States (Area 0)
 
 Link ID         ADV Router      Age         Seq#       Checksum
-192.168.1.2     172.16.0.2      1259        0x80000004 0x009FF2
+192.168.1.2     172.16.0.2      1           0x80000007 0x0099F5
 
                 Summary Net Link States (Area 0)
 
 Link ID         ADV Router      Age         Seq#       Checksum
-172.16.10.0     172.16.0.1      1326        0x80000004 0x0001B3
-172.16.11.0     172.16.0.1      1326        0x80000004 0x00F5BD
-172.16.22.0     172.16.0.1      1326        0x80000004 0x007C2C
-172.16.33.0     172.16.0.1      1326        0x80000004 0x00039A
+172.16.10.0     172.16.0.1      272         0x80000007 0x00FAB6
+172.16.11.0     172.16.0.1      272         0x80000007 0x00EFC0
+172.16.22.0     172.16.0.1      272         0x80000007 0x00762F
+172.16.33.0     172.16.0.1      272         0x80000007 0x00FC9D
 CE1#
 CE1#show ip protocols
 *** IP Routing is NSF aware ***
@@ -112,7 +112,7 @@ Routing Protocol is "ospf 1"
     GigabitEthernet2/0
   Routing Information Sources:
     Gateway         Distance      Last Update
-    172.16.0.1           110      02:01:50
+    172.16.0.1           110      03:21:49
   Distance: (default is 110)
 
 Routing Protocol is "bgp 65001"
@@ -131,23 +131,43 @@ Routing Protocol is "bgp 65001"
 CE1#
 CE1#show ip bgp neighbors
 BGP neighbor is 10.0.0.1,  remote AS 65000, external link
-  BGP version 4, remote router ID 0.0.0.0
-  BGP state = Idle
+  BGP version 4, remote router ID 2.115.115.1
+  BGP state = Established, up for 01:06:10
+  Last read 00:00:24, last write 00:00:40, hold time is 180, keepalive interval is 60 seconds
   Neighbor sessions:
-    0 active, is not multisession capable (disabled)
-    Stateful switchover support enabled: NO
+    1 active, is not multisession capable (disabled)
+  Neighbor capabilities:
+    Route refresh: advertised and received(new)
+    Four-octets ASN Capability: advertised and received
+    Address family IPv4 Unicast: advertised and received
+    Enhanced Refresh Capability: advertised and received
+    Multisession Capability:
+    Stateful switchover support enabled: NO for session 1
+  Message statistics:
+    InQ depth is 0
+    OutQ depth is 0
+
+                         Sent       Rcvd
+    Opens:                  1          1
+    Notifications:          0          0
+    Updates:                2          2
+    Keepalives:            74         74
+    Route Refresh:          0          0
+    Total:                 77         77
   Default minimum time between advertisement runs is 30 seconds
 
  For address family: IPv4 Unicast
-  BGP table version 2, neighbor version 1/2
+  Session: 10.0.0.1
+  BGP table version 2, neighbor version 2/0
   Output queue size : 0
-  Index 0, Advertise bit 0
+  Index 1, Advertise bit 0
+  1 update-group member
   Slow-peer detection is disabled
   Slow-peer split-update-group dynamic is disabled
                                  Sent       Rcvd
   Prefix activity:               ----       ----
-    Prefixes Current:               0          0
-    Prefixes Total:                 0          0
+    Prefixes Current:               1          1 (Consumes 80 bytes)
+    Prefixes Total:                 1          1
     Implicit Withdraw:              0          0
     Explicit Withdraw:              0          0
     Used as bestpath:             n/a          0
@@ -156,7 +176,7 @@ BGP neighbor is 10.0.0.1,  remote AS 65000, external link
                                    Outbound    Inbound
   Local Policy Denied Prefixes:    --------    -------
     Total:                                0          0
-  Number of NLRIs in the update sent: max 0, min 0
+  Number of NLRIs in the update sent: max 1, min 0
   Last detected as dynamic slow peer: never
   Dynamic slow peer recovered: never
   Refresh Epoch: 1
@@ -170,26 +190,59 @@ BGP neighbor is 10.0.0.1,  remote AS 65000, external link
           Refresh End-of-RIB            0          0
 
   Address tracking is enabled, the RIB does have a route to 10.0.0.1
-  Connections established 0; dropped 0
+  Connections established 1; dropped 0
   Last reset never
   Transport(tcp) path-mtu-discovery is enabled
   Graceful-Restart is disabled
-  No active TCP connection
+Connection state is ESTAB, I/O status: 1, unread input bytes: 0
+Connection is ECN Disabled
+Mininum incoming TTL 0, Outgoing TTL 1
+Local host: 10.0.0.2, Local port: 179
+Foreign host: 10.0.0.1, Foreign port: 53724
+Connection tableid (VRF): 0
+
+Enqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)
+
+Event Timers (current time is 0xB99A78):
+Timer          Starts    Wakeups            Next
+Retrans            76          1             0x0
+TimeWait            0          0             0x0
+AckHold            74         71             0x0
+SendWnd             0          0             0x0
+KeepAlive           0          0             0x0
+GiveUp              0          0             0x0
+PmtuAger            0          0             0x0
+DeadWait            0          0             0x0
+Linger              0          0             0x0
+
+iss: 3460430792  snduna: 3460432334  sndnxt: 3460432334     sndwnd:  16308
+irs: 1241125014  rcvnxt: 1241126556  rcvwnd:      16308  delrcvwnd:     76
+
+SRTT: 300 ms, RTTO: 303 ms, RTV: 3 ms, KRTT: 606 ms
+minRTT: 12 ms, maxRTT: 300 ms, ACK hold: 200 ms
+Status Flags: passive open, gen tcbs
+Option Flags: nagle, path mtu capable
+
+Datagrams (max data segment is 1460 bytes):
+Rcvd: 151 (out of order: 0), with data: 76, total data bytes: 1541
+Sent: 149 (retransmit: 1 fastretransmit: 0),with data: 76, total data bytes: 1541
+
 
 CE1#
 CE1#show ip bgp summary
 BGP router identifier 172.16.0.2, local AS number 65001
 BGP table version is 2, main routing table version 2
 1 network entries using 144 bytes of memory
-1 path entries using 80 bytes of memory
-1/1 BGP path/bestpath attribute entries using 136 bytes of memory
+2 path entries using 160 bytes of memory
+2/1 BGP path/bestpath attribute entries using 272 bytes of memory
+1 BGP AS-PATH entries using 24 bytes of memory
 0 BGP route-map cache entries using 0 bytes of memory
 0 BGP filter-list cache entries using 0 bytes of memory
-BGP using 360 total bytes of memory
-BGP activity 1/0 prefixes, 1/0 paths, scan interval 60 secs
+BGP using 600 total bytes of memory
+BGP activity 1/0 prefixes, 2/0 paths, scan interval 60 secs
 
 Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
-10.0.0.1        4        65000       0       0        1    0    0 never    Idle
+10.0.0.1        4        65000      77      77        2    0    0 01:06:10        1
 CE1#
 CE1#show ip cef
 Prefix               Next Hop             Interface
