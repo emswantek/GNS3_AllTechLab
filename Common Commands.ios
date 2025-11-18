@@ -20,6 +20,39 @@ term leng 0
 sh run
 
 
+!ISP-CORE-1 summary output commands
+
+term length 0
+
+
+show run | section interface
+
+show run | s router
+
+show ip route
+
+show isis neighbor
+
+show isis database
+
+show isis topology
+
+show clns interface
+
+show mpls ldp neighbor
+
+show mpls interfaces
+
+show mpls ldp bindings
+
+sh mpls forwarding-table
+
+show ip bgp neighbors
+
+show ip bgp summary
+
+show ip cef
+
 !ISP-PE-1 summary output commands
 term length 0
 

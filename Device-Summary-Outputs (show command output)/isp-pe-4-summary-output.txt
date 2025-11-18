@@ -53,9 +53,16 @@ router isis CORE
  metric-style wide
  log-adjacency-changes
 router isis ISP-PE-4
+router bgp 65000
+ bgp log-neighbor-changes
+ neighbor 1.115.115.1 remote-as 65000
+ neighbor 1.115.115.1 update-source Loopback0
+ !
+ address-family vpnv4
+  neighbor 1.115.115.1 activate
+  neighbor 1.115.115.1 send-community extended
+ exit-address-family
 mpls ldp router-id Loopback0 force
-ISP-PE-4#
-ISP-PE-4#sh vrf brief
 ISP-PE-4#
 ISP-PE-4#show ip route
 Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
@@ -70,32 +77,32 @@ Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 Gateway of last resort is not set
 
       1.0.0.0/32 is subnetted, 1 subnets
-i L2     1.115.115.1 [115/20] via 10.115.4.1, 01:58:03, GigabitEthernet2/0
+i L2     1.115.115.1 [115/20] via 10.115.4.1, 04:02:57, GigabitEthernet2/0
       2.0.0.0/32 is subnetted, 1 subnets
-i L2     2.115.115.1 [115/20] via 10.115.14.1, 01:58:03, GigabitEthernet1/0
+i L2     2.115.115.1 [115/20] via 10.115.14.1, 04:02:57, GigabitEthernet1/0
       3.0.0.0/32 is subnetted, 1 subnets
-i L2     3.115.115.1 [115/20] via 10.115.24.1, 01:57:53, GigabitEthernet4/0
+i L2     3.115.115.1 [115/20] via 10.115.24.1, 04:02:47, GigabitEthernet4/0
       4.0.0.0/32 is subnetted, 1 subnets
-i L2     4.115.115.1 [115/20] via 10.115.34.1, 01:57:53, GigabitEthernet3/0
+i L2     4.115.115.1 [115/20] via 10.115.34.1, 04:02:47, GigabitEthernet3/0
       5.0.0.0/32 is subnetted, 1 subnets
 C        5.115.115.1 is directly connected, Loopback0
       10.0.0.0/8 is variably subnetted, 14 subnets, 2 masks
-i L2     10.115.1.0/30 [115/20] via 10.115.14.1, 01:58:03, GigabitEthernet1/0
-                       [115/20] via 10.115.4.1, 01:58:03, GigabitEthernet2/0
-i L2     10.115.2.0/30 [115/20] via 10.115.24.1, 01:57:53, GigabitEthernet4/0
-                       [115/20] via 10.115.4.1, 01:57:53, GigabitEthernet2/0
-i L2     10.115.3.0/30 [115/20] via 10.115.34.1, 01:57:53, GigabitEthernet3/0
-                       [115/20] via 10.115.4.1, 01:57:53, GigabitEthernet2/0
+i L2     10.115.1.0/30 [115/20] via 10.115.14.1, 04:02:57, GigabitEthernet1/0
+                       [115/20] via 10.115.4.1, 04:02:57, GigabitEthernet2/0
+i L2     10.115.2.0/30 [115/20] via 10.115.24.1, 04:02:47, GigabitEthernet4/0
+                       [115/20] via 10.115.4.1, 04:02:47, GigabitEthernet2/0
+i L2     10.115.3.0/30 [115/20] via 10.115.34.1, 04:02:47, GigabitEthernet3/0
+                       [115/20] via 10.115.4.1, 04:02:47, GigabitEthernet2/0
 C        10.115.4.0/30 is directly connected, GigabitEthernet2/0
 L        10.115.4.2/32 is directly connected, GigabitEthernet2/0
-i L2     10.115.12.0/30 [115/20] via 10.115.24.1, 01:57:53, GigabitEthernet4/0
-                        [115/20] via 10.115.14.1, 01:57:53, GigabitEthernet1/0
-i L2     10.115.13.0/30 [115/20] via 10.115.34.1, 01:57:53, GigabitEthernet3/0
-                        [115/20] via 10.115.14.1, 01:57:53, GigabitEthernet1/0
+i L2     10.115.12.0/30 [115/20] via 10.115.24.1, 04:02:47, GigabitEthernet4/0
+                        [115/20] via 10.115.14.1, 04:02:47, GigabitEthernet1/0
+i L2     10.115.13.0/30 [115/20] via 10.115.34.1, 04:02:47, GigabitEthernet3/0
+                        [115/20] via 10.115.14.1, 04:02:47, GigabitEthernet1/0
 C        10.115.14.0/30 is directly connected, GigabitEthernet1/0
 L        10.115.14.2/32 is directly connected, GigabitEthernet1/0
-i L2     10.115.23.0/30 [115/20] via 10.115.34.1, 01:57:53, GigabitEthernet3/0
-                        [115/20] via 10.115.24.1, 01:57:53, GigabitEthernet4/0
+i L2     10.115.23.0/30 [115/20] via 10.115.34.1, 04:02:47, GigabitEthernet3/0
+                        [115/20] via 10.115.24.1, 04:02:47, GigabitEthernet4/0
 C        10.115.24.0/30 is directly connected, GigabitEthernet4/0
 L        10.115.24.2/32 is directly connected, GigabitEthernet4/0
 C        10.115.34.0/30 is directly connected, GigabitEthernet3/0
@@ -105,9 +112,9 @@ ISP-PE-4#show isis neighbor
 
 Tag CORE:
 System Id      Type Interface   IP Address      State Holdtime Circuit Id
-ISP-CORE-1     L2   Gi2/0       10.115.4.1      UP    25       04
-ISP-PE-1       L2   Gi1/0       10.115.14.1     UP    29       04
-ISP-PE-2       L2   Gi4/0       10.115.24.1     UP    28       04
+ISP-CORE-1     L2   Gi2/0       10.115.4.1      UP    29       04
+ISP-PE-1       L2   Gi1/0       10.115.14.1     UP    24       04
+ISP-PE-2       L2   Gi4/0       10.115.24.1     UP    25       04
 ISP-PE-3       L2   Gi3/0       10.115.34.1     UP    28       04
 
 Tag ISP-PE-4:
@@ -117,11 +124,11 @@ ISP-PE-4#show isis database
 Tag CORE:
 IS-IS Level-2 Link State Database:
 LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime      ATT/P/OL
-ISP-CORE-1.00-00      0x0000000D   0x060E        705               0/0/0
-ISP-PE-1.00-00        0x0000000C   0x2764        431               0/0/0
-ISP-PE-2.00-00        0x0000000A   0xB3C1        440               0/0/0
-ISP-PE-3.00-00        0x0000000C   0x4B19        644               0/0/0
-ISP-PE-4.00-00      * 0x0000000D   0x5B02        864               0/0/0
+ISP-CORE-1.00-00      0x00000016   0xF317        580               0/0/0
+ISP-PE-1.00-00        0x00000016   0x136E        833               0/0/0
+ISP-PE-2.00-00        0x00000014   0x9FCB        629               0/0/0
+ISP-PE-3.00-00        0x00000015   0x3922        307               0/0/0
+ISP-PE-4.00-00      * 0x00000016   0x490B        664               0/0/0
 
 Tag ISP-PE-4:
 ISP-PE-4#
@@ -148,7 +155,7 @@ GigabitEthernet1/0 is up, line protocol is up
   CLNS fast switching enabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 49 seconds
+  Next ESH/ISH in 18 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x1, local circuit ID 0x101
@@ -164,7 +171,7 @@ GigabitEthernet2/0 is up, line protocol is up
   CLNS fast switching enabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 13 seconds
+  Next ESH/ISH in 11 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x2, local circuit ID 0x102
@@ -172,7 +179,7 @@ GigabitEthernet2/0 is up, line protocol is up
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-4.02
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 1
-    Next IS-IS Hello in 2 seconds
+    Next IS-IS Hello in 7 seconds
     if state UP
 GigabitEthernet3/0 is up, line protocol is up
   Checksums enabled, MTU 1497, Encapsulation SAP
@@ -180,7 +187,7 @@ GigabitEthernet3/0 is up, line protocol is up
   CLNS fast switching enabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 16 seconds
+  Next ESH/ISH in 17 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x3, local circuit ID 0x103
@@ -188,7 +195,7 @@ GigabitEthernet3/0 is up, line protocol is up
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-4.03
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 1
-    Next IS-IS Hello in 6 seconds
+    Next IS-IS Hello in 3 seconds
     if state UP
 GigabitEthernet4/0 is up, line protocol is up
   Checksums enabled, MTU 1497, Encapsulation SAP
@@ -196,7 +203,7 @@ GigabitEthernet4/0 is up, line protocol is up
   CLNS fast switching enabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 26 seconds
+  Next ESH/ISH in 25 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x4, local circuit ID 0x104
@@ -204,7 +211,7 @@ GigabitEthernet4/0 is up, line protocol is up
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-4.04
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 1
-    Next IS-IS Hello in 3 seconds
+    Next IS-IS Hello in 9 seconds
     if state UP
 GigabitEthernet5/0 is up, line protocol is up
   CLNS protocol processing disabled
@@ -216,21 +223,21 @@ Loopback0 is up, line protocol is up
   CLNS fast switching disabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 42 seconds
+  Next ESH/ISH in 21 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x0, local circuit ID 0x100
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-4.00
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 0
-    Next IS-IS Hello in 619 milliseconds
+    Next IS-IS Hello in 4 seconds
     if state DOWN
 ISP-PE-4#
 ISP-PE-4#show mpls ldp neighbor
     Peer LDP Ident: 1.115.115.1:0; Local LDP Ident 5.115.115.1:0
         TCP connection: 1.115.115.1.646 - 5.115.115.1.37673
-        State: Oper; Msgs sent/rcvd: 153/152; Downstream
-        Up time: 01:58:02
+        State: Oper; Msgs sent/rcvd: 295/294; Downstream
+        Up time: 04:02:56
         LDP discovery sources:
           GigabitEthernet2/0, Src IP addr: 10.115.4.1
         Addresses bound to peer LDP Ident:
@@ -238,8 +245,8 @@ ISP-PE-4#show mpls ldp neighbor
           10.115.4.1
     Peer LDP Ident: 2.115.115.1:0; Local LDP Ident 5.115.115.1:0
         TCP connection: 2.115.115.1.646 - 5.115.115.1.25057
-        State: Oper; Msgs sent/rcvd: 150/152; Downstream
-        Up time: 01:58:02
+        State: Oper; Msgs sent/rcvd: 293/293; Downstream
+        Up time: 04:02:56
         LDP discovery sources:
           GigabitEthernet1/0, Src IP addr: 10.115.14.1
         Addresses bound to peer LDP Ident:
@@ -247,8 +254,8 @@ ISP-PE-4#show mpls ldp neighbor
           10.115.14.1
     Peer LDP Ident: 3.115.115.1:0; Local LDP Ident 5.115.115.1:0
         TCP connection: 3.115.115.1.646 - 5.115.115.1.37751
-        State: Oper; Msgs sent/rcvd: 149/149; Downstream
-        Up time: 01:54:33
+        State: Oper; Msgs sent/rcvd: 293/291; Downstream
+        Up time: 03:59:27
         LDP discovery sources:
           GigabitEthernet4/0, Src IP addr: 10.115.24.1
         Addresses bound to peer LDP Ident:
@@ -256,8 +263,8 @@ ISP-PE-4#show mpls ldp neighbor
           3.115.115.1
     Peer LDP Ident: 4.115.115.1:0; Local LDP Ident 5.115.115.1:0
         TCP connection: 4.115.115.1.646 - 5.115.115.1.27672
-        State: Oper; Msgs sent/rcvd: 148/149; Downstream
-        Up time: 01:53:46
+        State: Oper; Msgs sent/rcvd: 293/293; Downstream
+        Up time: 03:58:40
         LDP discovery sources:
           GigabitEthernet3/0, Src IP addr: 10.115.34.1
         Addresses bound to peer LDP Ident:
@@ -384,57 +391,142 @@ Label      Label      or Tunnel Id     Switched      interface
            Pop Label  10.115.23.0/30   0             Gi3/0      10.115.34.1
 ISP-PE-4#
 ISP-PE-4#show ip bgp neighbors
-% BGP not active
+BGP neighbor is 1.115.115.1,  remote AS 65000, internal link
+  BGP version 4, remote router ID 1.115.115.1
+  BGP state = Established, up for 00:16:21
+  Last read 00:00:15, last write 00:00:29, hold time is 180, keepalive interval is 60 seconds
+  Neighbor sessions:
+    1 active, is not multisession capable (disabled)
+  Neighbor capabilities:
+    Route refresh: advertised and received(new)
+    Four-octets ASN Capability: advertised and received
+    Address family IPv4 Unicast: advertised and received
+    Address family VPNv4 Unicast: advertised and received
+    Enhanced Refresh Capability: advertised and received
+    Multisession Capability:
+    Stateful switchover support enabled: NO for session 1
+  Message statistics:
+    InQ depth is 0
+    OutQ depth is 0
+
+                         Sent       Rcvd
+    Opens:                  1          1
+    Notifications:          0          0
+    Updates:                2          2
+    Keepalives:            19         19
+    Route Refresh:          0          0
+    Total:                 22         22
+  Default minimum time between advertisement runs is 0 seconds
+
+ For address family: IPv4 Unicast
+  Session: 1.115.115.1
+  BGP table version 1, neighbor version 1/0
+  Output queue size : 0
+  Index 1, Advertise bit 0
+  1 update-group member
+  Slow-peer detection is disabled
+  Slow-peer split-update-group dynamic is disabled
+                                 Sent       Rcvd
+  Prefix activity:               ----       ----
+    Prefixes Current:               0          0
+    Prefixes Total:                 0          0
+    Implicit Withdraw:              0          0
+    Explicit Withdraw:              0          0
+    Used as bestpath:             n/a          0
+    Used as multipath:            n/a          0
+
+                                   Outbound    Inbound
+  Local Policy Denied Prefixes:    --------    -------
+    Total:                                0          0
+  Number of NLRIs in the update sent: max 0, min 0
+  Last detected as dynamic slow peer: never
+  Dynamic slow peer recovered: never
+  Refresh Epoch: 1
+  Last Sent Refresh Start-of-rib: never
+  Last Sent Refresh End-of-rib: never
+  Last Received Refresh Start-of-rib: never
+  Last Received Refresh End-of-rib: never
+                                       Sent       Rcvd
+        Refresh activity:              ----       ----
+          Refresh Start-of-RIB          0          0
+          Refresh End-of-RIB            0          0
+
+ For address family: VPNv4 Unicast
+  Session: 1.115.115.1
+  BGP table version 1, neighbor version 1/0
+  Output queue size : 0
+  Index 1, Advertise bit 0
+  1 update-group member
+  Slow-peer detection is disabled
+  Slow-peer split-update-group dynamic is disabled
+                                 Sent       Rcvd
+  Prefix activity:               ----       ----
+    Prefixes Current:               0          0
+    Prefixes Total:                 0          0
+    Implicit Withdraw:              0          0
+    Explicit Withdraw:              0          0
+    Used as bestpath:             n/a          0
+    Used as multipath:            n/a          0
+
+                                   Outbound    Inbound
+  Local Policy Denied Prefixes:    --------    -------
+    Total:                                0          0
+  Number of NLRIs in the update sent: max 0, min 0
+  Last detected as dynamic slow peer: never
+  Dynamic slow peer recovered: never
+  Refresh Epoch: 1
+  Last Sent Refresh Start-of-rib: never
+  Last Sent Refresh End-of-rib: never
+  Last Received Refresh Start-of-rib: never
+  Last Received Refresh End-of-rib: never
+                                       Sent       Rcvd
+        Refresh activity:              ----       ----
+          Refresh Start-of-RIB          0          0
+          Refresh End-of-RIB            0          0
+
+  Address tracking is enabled, the RIB does have a route to 1.115.115.1
+  Connections established 1; dropped 0
+  Last reset never
+  Transport(tcp) path-mtu-discovery is enabled
+  Graceful-Restart is disabled
+Connection state is ESTAB, I/O status: 1, unread input bytes: 0
+Connection is ECN Disabled
+Mininum incoming TTL 0, Outgoing TTL 255
+Local host: 5.115.115.1, Local port: 179
+Foreign host: 1.115.115.1, Foreign port: 37650
+Connection tableid (VRF): 0
+
+Enqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)
+
+Event Timers (current time is 0xDE90FC):
+Timer          Starts    Wakeups            Next
+Retrans            20          0             0x0
+TimeWait            0          0             0x0
+AckHold            20         19             0x0
+SendWnd             0          0             0x0
+KeepAlive           0          0             0x0
+GiveUp              0          0             0x0
+PmtuAger            0          0             0x0
+DeadWait            0          0             0x0
+Linger              0          0             0x0
+
+iss: 3243194009  snduna: 3243194488  sndnxt: 3243194488     sndwnd:  15906
+irs:  237320792  rcvnxt:  237321271  rcvwnd:      15906  delrcvwnd:    478
+
+SRTT: 279 ms, RTTO: 446 ms, RTV: 167 ms, KRTT: 0 ms
+minRTT: 16 ms, maxRTT: 300 ms, ACK hold: 200 ms
+Status Flags: passive open, gen tcbs
+Option Flags: nagle, path mtu capable
+
+Datagrams (max data segment is 1436 bytes):
+Rcvd: 42 (out of order: 0), with data: 22, total data bytes: 478
+Sent: 42 (retransmit: 0 fastretransmit: 0),with data: 22, total data bytes: 478
+
 
 ISP-PE-4#
 ISP-PE-4#show ip bgp summary
-% BGP not active
+BGP router identifier 5.115.115.1, local AS number 65000
+BGP table version is 1, main routing table version 1
 
-ISP-PE-4#
-ISP-PE-4#show ip cef
-Prefix               Next Hop             Interface
-0.0.0.0/0            no route
-0.0.0.0/8            drop
-0.0.0.0/32           receive
-1.115.115.1/32       10.115.4.1           GigabitEthernet2/0
-2.115.115.1/32       10.115.14.1          GigabitEthernet1/0
-3.115.115.1/32       10.115.24.1          GigabitEthernet4/0
-4.115.115.1/32       10.115.34.1          GigabitEthernet3/0
-5.115.115.1/32       receive              Loopback0
-10.115.1.0/30        10.115.4.1           GigabitEthernet2/0
-                     10.115.14.1          GigabitEthernet1/0
-10.115.2.0/30        10.115.4.1           GigabitEthernet2/0
-                     10.115.24.1          GigabitEthernet4/0
-10.115.3.0/30        10.115.4.1           GigabitEthernet2/0
-                     10.115.34.1          GigabitEthernet3/0
-10.115.4.0/30        attached             GigabitEthernet2/0
-10.115.4.0/32        receive              GigabitEthernet2/0
-10.115.4.1/32        attached             GigabitEthernet2/0
-10.115.4.2/32        receive              GigabitEthernet2/0
-10.115.4.3/32        receive              GigabitEthernet2/0
-10.115.12.0/30       10.115.14.1          GigabitEthernet1/0
-                     10.115.24.1          GigabitEthernet4/0
-10.115.13.0/30       10.115.14.1          GigabitEthernet1/0
-                     10.115.34.1          GigabitEthernet3/0
-10.115.14.0/30       attached             GigabitEthernet1/0
-10.115.14.0/32       receive              GigabitEthernet1/0
-10.115.14.1/32       attached             GigabitEthernet1/0
-10.115.14.2/32       receive              GigabitEthernet1/0
-10.115.14.3/32       receive              GigabitEthernet1/0
-10.115.23.0/30       10.115.24.1          GigabitEthernet4/0
-                     10.115.34.1          GigabitEthernet3/0
-10.115.24.0/30       attached             GigabitEthernet4/0
-10.115.24.0/32       receive              GigabitEthernet4/0
-10.115.24.1/32       attached             GigabitEthernet4/0
-10.115.24.2/32       receive              GigabitEthernet4/0
-10.115.24.3/32       receive              GigabitEthernet4/0
-10.115.34.0/30       attached             GigabitEthernet3/0
-10.115.34.0/32       receive              GigabitEthernet3/0
-10.115.34.1/32       attached             GigabitEthernet3/0
-10.115.34.2/32       receive              GigabitEthernet3/0
-10.115.34.3/32       receive              GigabitEthernet3/0
-127.0.0.0/8          drop
-224.0.0.0/4          drop
-224.0.0.0/24         receive
-240.0.0.0/4          drop
-255.255.255.255/32   receive
+Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
+1.115.115.1     4        65000      22      22        1    0    0 00:16:21        0
