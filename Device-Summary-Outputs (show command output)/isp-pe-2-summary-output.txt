@@ -55,7 +55,7 @@ router isis CORE
  is-type level-2-only
  metric-style wide
  log-adjacency-changes
-router bgp 65200
+router bgp 65000
  bgp log-neighbor-changes
  !
  address-family ipv4 vrf CE2
@@ -82,36 +82,36 @@ Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
 Gateway of last resort is not set
 
       1.0.0.0/32 is subnetted, 1 subnets
-i L2     1.115.115.1 [115/20] via 10.115.2.1, 02:28:26, GigabitEthernet2/0
+i L2     1.115.115.1 [115/20] via 10.115.2.1, 00:04:36, GigabitEthernet2/0
       2.0.0.0/32 is subnetted, 1 subnets
-i L2     2.115.115.1 [115/20] via 10.115.12.1, 02:28:26, GigabitEthernet1/0
+i L2     2.115.115.1 [115/20] via 10.115.12.1, 00:04:36, GigabitEthernet1/0
       3.0.0.0/32 is subnetted, 1 subnets
 C        3.115.115.1 is directly connected, Loopback0
       4.0.0.0/32 is subnetted, 1 subnets
-i L2     4.115.115.1 [115/20] via 10.115.23.2, 02:28:26, GigabitEthernet3/0
+i L2     4.115.115.1 [115/20] via 10.115.23.2, 00:04:36, GigabitEthernet3/0
       5.0.0.0/32 is subnetted, 1 subnets
-i L2     5.115.115.1 [115/20] via 10.115.24.2, 02:28:26, GigabitEthernet5/0
+i L2     5.115.115.1 [115/20] via 10.115.24.2, 00:04:36, GigabitEthernet5/0
       10.0.0.0/8 is variably subnetted, 14 subnets, 2 masks
-i L2     10.115.1.0/30 [115/20] via 10.115.12.1, 02:28:26, GigabitEthernet1/0
-                       [115/20] via 10.115.2.1, 02:28:26, GigabitEthernet2/0
+i L2     10.115.1.0/30 [115/20] via 10.115.12.1, 00:04:36, GigabitEthernet1/0
+                       [115/20] via 10.115.2.1, 00:04:36, GigabitEthernet2/0
 C        10.115.2.0/30 is directly connected, GigabitEthernet2/0
 L        10.115.2.2/32 is directly connected, GigabitEthernet2/0
-i L2     10.115.3.0/30 [115/20] via 10.115.23.2, 02:28:26, GigabitEthernet3/0
-                       [115/20] via 10.115.2.1, 02:28:26, GigabitEthernet2/0
-i L2     10.115.4.0/30 [115/20] via 10.115.24.2, 02:28:26, GigabitEthernet5/0
-                       [115/20] via 10.115.2.1, 02:28:26, GigabitEthernet2/0
+i L2     10.115.3.0/30 [115/20] via 10.115.23.2, 00:04:36, GigabitEthernet3/0
+                       [115/20] via 10.115.2.1, 00:04:36, GigabitEthernet2/0
+i L2     10.115.4.0/30 [115/20] via 10.115.24.2, 00:04:36, GigabitEthernet5/0
+                       [115/20] via 10.115.2.1, 00:04:36, GigabitEthernet2/0
 C        10.115.12.0/30 is directly connected, GigabitEthernet1/0
 L        10.115.12.2/32 is directly connected, GigabitEthernet1/0
-i L2     10.115.13.0/30 [115/20] via 10.115.23.2, 02:28:26, GigabitEthernet3/0
-                        [115/20] via 10.115.12.1, 02:28:26, GigabitEthernet1/0
-i L2     10.115.14.0/30 [115/20] via 10.115.24.2, 02:28:26, GigabitEthernet5/0
-                        [115/20] via 10.115.12.1, 02:28:26, GigabitEthernet1/0
+i L2     10.115.13.0/30 [115/20] via 10.115.23.2, 00:04:36, GigabitEthernet3/0
+                        [115/20] via 10.115.12.1, 00:04:36, GigabitEthernet1/0
+i L2     10.115.14.0/30 [115/20] via 10.115.24.2, 00:04:36, GigabitEthernet5/0
+                        [115/20] via 10.115.12.1, 00:04:36, GigabitEthernet1/0
 C        10.115.23.0/30 is directly connected, GigabitEthernet3/0
 L        10.115.23.1/32 is directly connected, GigabitEthernet3/0
 C        10.115.24.0/30 is directly connected, GigabitEthernet5/0
 L        10.115.24.1/32 is directly connected, GigabitEthernet5/0
-i L2     10.115.34.0/30 [115/20] via 10.115.24.2, 02:28:26, GigabitEthernet5/0
-                        [115/20] via 10.115.23.2, 02:28:26, GigabitEthernet3/0
+i L2     10.115.34.0/30 [115/20] via 10.115.24.2, 00:04:36, GigabitEthernet5/0
+                        [115/20] via 10.115.23.2, 00:04:36, GigabitEthernet3/0
 ISP-PE-2#
 ISP-PE-2#show ip route vrf CE2
 
@@ -135,9 +135,9 @@ ISP-PE-2#show isis neighbor
 
 Tag CORE:
 System Id      Type Interface   IP Address      State Holdtime Circuit Id
-ISP-CORE-1     L2   Gi2/0       10.115.2.1      UP    29       03
-ISP-PE-1       L2   Gi1/0       10.115.12.1     UP    21       03
-ISP-PE-3       L2   Gi3/0       10.115.23.2     UP    26       03
+ISP-CORE-1     L2   Gi2/0       10.115.2.1      UP    26       03
+ISP-PE-1       L2   Gi1/0       10.115.12.1     UP    29       03
+ISP-PE-3       L2   Gi3/0       10.115.23.2     UP    28       03
 ISP-PE-4       L2   Gi5/0       10.115.24.2     UP    21       04
 ISP-PE-2#
 ISP-PE-2#show isis database
@@ -145,11 +145,11 @@ ISP-PE-2#show isis database
 Tag CORE:
 IS-IS Level-2 Link State Database:
 LSPID                 LSP Seq Num  LSP Checksum  LSP Holdtime      ATT/P/OL
-ISP-CORE-1.00-00      0x00000010   0xFF11        1100              0/0/0
-ISP-PE-1.00-00        0x0000000F   0x2167        1112              0/0/0
-ISP-PE-2.00-00      * 0x0000000D   0xADC4        878               0/0/0
-ISP-PE-3.00-00        0x0000000E   0x471B        561               0/0/0
-ISP-PE-4.00-00        0x0000000F   0x5704        776               0/0/0
+ISP-CORE-1.00-00      0x00000014   0xF715        351               0/0/0
+ISP-PE-1.00-00        0x00000014   0x176C        896               0/0/0
+ISP-PE-2.00-00      * 0x00000012   0xA3C9        616               0/0/0
+ISP-PE-3.00-00        0x00000014   0x3B21        1022              0/0/0
+ISP-PE-4.00-00        0x00000014   0x4D09        607               0/0/0
 ISP-PE-2#
 ISP-PE-2#show isis topology
 
@@ -172,7 +172,7 @@ GigabitEthernet1/0 is up, line protocol is up
   CLNS fast switching enabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 15 seconds
+  Next ESH/ISH in 1 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x1, local circuit ID 0x101
@@ -180,7 +180,7 @@ GigabitEthernet1/0 is up, line protocol is up
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-2.01
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 1
-    Next IS-IS Hello in 8 seconds
+    Next IS-IS Hello in 7 seconds
     if state UP
 GigabitEthernet2/0 is up, line protocol is up
   Checksums enabled, MTU 1497, Encapsulation SAP
@@ -188,7 +188,7 @@ GigabitEthernet2/0 is up, line protocol is up
   CLNS fast switching enabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 5 seconds
+  Next ESH/ISH in 29 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x2, local circuit ID 0x102
@@ -196,7 +196,7 @@ GigabitEthernet2/0 is up, line protocol is up
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-2.02
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 1
-    Next IS-IS Hello in 5 seconds
+    Next IS-IS Hello in 8 seconds
     if state UP
 GigabitEthernet3/0 is up, line protocol is up
   Checksums enabled, MTU 1497, Encapsulation SAP
@@ -204,7 +204,7 @@ GigabitEthernet3/0 is up, line protocol is up
   CLNS fast switching enabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 46 seconds
+  Next ESH/ISH in 36 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x3, local circuit ID 0x103
@@ -212,7 +212,7 @@ GigabitEthernet3/0 is up, line protocol is up
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-3.03
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 1
-    Next IS-IS Hello in 5 seconds
+    Next IS-IS Hello in 1 seconds
     if state UP
 GigabitEthernet4/0 is up, line protocol is up
   CLNS protocol processing disabled
@@ -222,7 +222,7 @@ GigabitEthernet5/0 is up, line protocol is up
   CLNS fast switching enabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 30 seconds
+  Next ESH/ISH in 25 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x4, local circuit ID 0x104
@@ -230,7 +230,7 @@ GigabitEthernet5/0 is up, line protocol is up
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-4.04
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 1
-    Next IS-IS Hello in 5 seconds
+    Next IS-IS Hello in 3 seconds
     if state UP
 GigabitEthernet6/0 is up, line protocol is up
   CLNS protocol processing disabled
@@ -240,21 +240,21 @@ Loopback0 is up, line protocol is up
   CLNS fast switching disabled
   CLNS SSE switching disabled
   DEC compatibility mode OFF for this interface
-  Next ESH/ISH in 28 seconds
+  Next ESH/ISH in 1 seconds
   Routing Protocol: IS-IS (CORE)
     Circuit Type: level-1-2
     Interface number 0x0, local circuit ID 0x100
     Level-2 Metric: 10, Priority: 64, Circuit ID: ISP-PE-2.00
     Level-2 IPv6 Metric: 10
     Number of active level-2 adjacencies: 0
-    Next IS-IS Hello in 7 seconds
+    Next IS-IS Hello in 3 seconds
     if state DOWN
 ISP-PE-2#
 ISP-PE-2#show mpls ldp neighbor
     Peer LDP Ident: 1.115.115.1:0; Local LDP Ident 3.115.115.1:0
         TCP connection: 1.115.115.1.646 - 3.115.115.1.65155
-        State: Oper; Msgs sent/rcvd: 182/183; Downstream
-        Up time: 02:25:02
+        State: Oper; Msgs sent/rcvd: 261/261; Downstream
+        Up time: 03:33:42
         LDP discovery sources:
           GigabitEthernet2/0, Src IP addr: 10.115.2.1
         Addresses bound to peer LDP Ident:
@@ -262,8 +262,8 @@ ISP-PE-2#show mpls ldp neighbor
           10.115.4.1
     Peer LDP Ident: 2.115.115.1:0; Local LDP Ident 3.115.115.1:0
         TCP connection: 2.115.115.1.646 - 3.115.115.1.56359
-        State: Oper; Msgs sent/rcvd: 183/186; Downstream
-        Up time: 02:25:02
+        State: Oper; Msgs sent/rcvd: 262/265; Downstream
+        Up time: 03:33:42
         LDP discovery sources:
           GigabitEthernet1/0, Src IP addr: 10.115.12.1
         Addresses bound to peer LDP Ident:
@@ -271,8 +271,8 @@ ISP-PE-2#show mpls ldp neighbor
           10.115.14.1
     Peer LDP Ident: 5.115.115.1:0; Local LDP Ident 3.115.115.1:0
         TCP connection: 5.115.115.1.37751 - 3.115.115.1.646
-        State: Oper; Msgs sent/rcvd: 184/184; Downstream
-        Up time: 02:25:02
+        State: Oper; Msgs sent/rcvd: 262/263; Downstream
+        Up time: 03:33:41
         LDP discovery sources:
           GigabitEthernet5/0, Src IP addr: 10.115.24.2
         Addresses bound to peer LDP Ident:
@@ -280,8 +280,8 @@ ISP-PE-2#show mpls ldp neighbor
           10.115.24.2
     Peer LDP Ident: 4.115.115.1:0; Local LDP Ident 3.115.115.1:0
         TCP connection: 4.115.115.1.50251 - 3.115.115.1.646
-        State: Oper; Msgs sent/rcvd: 181/182; Downstream
-        Up time: 02:24:16
+        State: Oper; Msgs sent/rcvd: 259/260; Downstream
+        Up time: 03:32:55
         LDP discovery sources:
           GigabitEthernet3/0, Src IP addr: 10.115.23.2
         Addresses bound to peer LDP Ident:
@@ -412,7 +412,7 @@ ISP-PE-2#
 ISP-PE-2#show ip bgp summary
 ISP-PE-2#
 ISP-PE-2#show ip bgp vpnv4 vrf CE2 summary
-BGP router identifier 3.115.115.1, local AS number 65200
+BGP router identifier 3.115.115.1, local AS number 65000
 BGP table version is 2, main routing table version 2
 1 network entries using 156 bytes of memory
 2 path entries using 160 bytes of memory
@@ -425,13 +425,13 @@ BGP using 796 total bytes of memory
 BGP activity 1/0 prefixes, 2/0 paths, scan interval 60 secs
 
 Neighbor        V           AS MsgRcvd MsgSent   TblVer  InQ OutQ Up/Down  State/PfxRcd
-172.16.90.89    4        65202      16      17        2    0    0 00:10:45        1
+172.16.90.89    4        65202       7       7        2    0    0 00:02:38        1
 ISP-PE-2#
 ISP-PE-2#show ip bgp vpnv4 vrf CE2 neighbors
 BGP neighbor is 172.16.90.89,  vrf CE2,  remote AS 65202, external link
   BGP version 4, remote router ID 172.31.255.1
-  BGP state = Established, up for 00:10:45
-  Last read 00:00:37, last write 00:00:09, hold time is 180, keepalive interval is 60 seconds
+  BGP state = Established, up for 00:02:38
+  Last read 00:00:57, last write 00:00:41, hold time is 180, keepalive interval is 60 seconds
   Neighbor sessions:
     1 active, is not multisession capable (disabled)
   Neighbor capabilities:
@@ -449,9 +449,9 @@ BGP neighbor is 172.16.90.89,  vrf CE2,  remote AS 65202, external link
     Opens:                  1          1
     Notifications:          0          0
     Updates:                2          2
-    Keepalives:            14         13
+    Keepalives:             4          4
     Route Refresh:          0          0
-    Total:                 17         16
+    Total:                  7          7
   Default minimum time between advertisement runs is 0 seconds
 
  For address family: VPNv4 Unicast
@@ -497,16 +497,16 @@ Connection state is ESTAB, I/O status: 1, unread input bytes: 0
 Connection is ECN Disabled
 Mininum incoming TTL 0, Outgoing TTL 1
 Local host: 172.16.90.90, Local port: 179
-Foreign host: 172.16.90.89, Foreign port: 26453
+Foreign host: 172.16.90.89, Foreign port: 22712
 Connection tableid (VRF): 1
 
 Enqueued packets for retransmit: 0, input: 0  mis-ordered: 0 (0 bytes)
 
-Event Timers (current time is 0x880B90):
+Event Timers (current time is 0xC6E5F0):
 Timer          Starts    Wakeups            Next
-Retrans            15          0             0x0
+Retrans             6          0             0x0
 TimeWait            0          0             0x0
-AckHold            14         12             0x0
+AckHold             4          3             0x0
 SendWnd             0          0             0x0
 KeepAlive           0          0             0x0
 GiveUp              0          0             0x0
@@ -514,17 +514,17 @@ PmtuAger            0          0             0x0
 DeadWait            0          0             0x0
 Linger              0          0             0x0
 
-iss: 3498949548  snduna: 3498949950  sndnxt: 3498949950     sndwnd:  15983
-irs: 1802756482  rcvnxt: 1802756865  rcvwnd:      16002  delrcvwnd:    382
+iss: 2552769959  snduna: 2552770171  sndnxt: 2552770171     sndwnd:  16173
+irs: 2477664876  rcvnxt: 2477665088  rcvwnd:      16173  delrcvwnd:    211
 
-SRTT: 259 ms, RTTO: 579 ms, RTV: 320 ms, KRTT: 0 ms
-minRTT: 4 ms, maxRTT: 300 ms, ACK hold: 200 ms
+SRTT: 165 ms, RTTO: 1172 ms, RTV: 1007 ms, KRTT: 0 ms
+minRTT: 8 ms, maxRTT: 300 ms, ACK hold: 200 ms
 Status Flags: passive open, gen tcbs
 Option Flags: VRF id set, nagle, path mtu capable
 
 Datagrams (max data segment is 1460 bytes):
-Rcvd: 30 (out of order: 0), with data: 15, total data bytes: 382
-Sent: 29 (retransmit: 0 fastretransmit: 0),with data: 16, total data bytes: 401
+Rcvd: 12 (out of order: 0), with data: 6, total data bytes: 211
+Sent: 11 (retransmit: 0 fastretransmit: 0),with data: 7, total data bytes: 211
 
 
 ISP-PE-2#
@@ -587,6 +587,54 @@ Prefix               Next Hop             Interface
 172.16.90.89/32      attached             GigabitEthernet6/0
 172.16.90.90/32      receive              GigabitEthernet6/0
 172.16.90.91/32      receive              GigabitEthernet6/0
+224.0.0.0/4          drop
+224.0.0.0/24         receive
+240.0.0.0/4          drop
+255.255.255.255/32   receive
+ISP-PE-2#
+ISP-PE-2#show ip cef
+Prefix               Next Hop             Interface
+0.0.0.0/0            no route
+0.0.0.0/8            drop
+0.0.0.0/32           receive
+1.115.115.1/32       10.115.2.1           GigabitEthernet2/0
+2.115.115.1/32       10.115.12.1          GigabitEthernet1/0
+3.115.115.1/32       receive              Loopback0
+4.115.115.1/32       10.115.23.2          GigabitEthernet3/0
+5.115.115.1/32       10.115.24.2          GigabitEthernet5/0
+10.115.1.0/30        10.115.2.1           GigabitEthernet2/0
+                     10.115.12.1          GigabitEthernet1/0
+10.115.2.0/30        attached             GigabitEthernet2/0
+10.115.2.0/32        receive              GigabitEthernet2/0
+10.115.2.1/32        attached             GigabitEthernet2/0
+10.115.2.2/32        receive              GigabitEthernet2/0
+10.115.2.3/32        receive              GigabitEthernet2/0
+10.115.3.0/30        10.115.2.1           GigabitEthernet2/0
+                     10.115.23.2          GigabitEthernet3/0
+10.115.4.0/30        10.115.2.1           GigabitEthernet2/0
+                     10.115.24.2          GigabitEthernet5/0
+10.115.12.0/30       attached             GigabitEthernet1/0
+10.115.12.0/32       receive              GigabitEthernet1/0
+10.115.12.1/32       attached             GigabitEthernet1/0
+10.115.12.2/32       receive              GigabitEthernet1/0
+10.115.12.3/32       receive              GigabitEthernet1/0
+10.115.13.0/30       10.115.12.1          GigabitEthernet1/0
+                     10.115.23.2          GigabitEthernet3/0
+10.115.14.0/30       10.115.12.1          GigabitEthernet1/0
+                     10.115.24.2          GigabitEthernet5/0
+10.115.23.0/30       attached             GigabitEthernet3/0
+10.115.23.0/32       receive              GigabitEthernet3/0
+10.115.23.1/32       receive              GigabitEthernet3/0
+10.115.23.2/32       attached             GigabitEthernet3/0
+10.115.23.3/32       receive              GigabitEthernet3/0
+10.115.24.0/30       attached             GigabitEthernet5/0
+10.115.24.0/32       receive              GigabitEthernet5/0
+10.115.24.1/32       receive              GigabitEthernet5/0
+10.115.24.2/32       attached             GigabitEthernet5/0
+10.115.24.3/32       receive              GigabitEthernet5/0
+10.115.34.0/30       10.115.23.2          GigabitEthernet3/0
+                     10.115.24.2          GigabitEthernet5/0
+127.0.0.0/8          drop
 224.0.0.0/4          drop
 224.0.0.0/24         receive
 240.0.0.0/4          drop
