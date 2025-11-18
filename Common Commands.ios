@@ -20,7 +20,7 @@ term leng 0
 sh run
 
 
-!ISP summary output commands
+!ISP-PE-1 summary output commands
 term length 0
 
 
@@ -29,6 +29,8 @@ show run | section interface
 show run | s router
 
 sh vrf brief
+
+show ip route vrf CE1
 
 show ip route
 
@@ -52,9 +54,57 @@ show ip bgp neighbors
 
 show ip bgp summary
 
+show ip bgp vpnv4 vrf CE1 summary
+
+show ip bgp vpnv4 vrf CE1 neighbors
+
 show ip cef
 
+show ip cef vrf CE1
 
+!ISP-PE-2 summary output commands
+term length 0
+
+
+show run | section interface
+
+show run | s router
+
+sh vrf brief
+
+show ip route
+
+show ip route vrf CE2
+
+show isis neighbor
+
+show isis database
+
+show isis topology
+
+show clns interface
+
+show mpls ldp neighbor
+
+show mpls interfaces
+
+show mpls ldp bindings
+
+sh mpls forwarding-table
+
+show ip bgp neighbors
+
+show ip bgp summary
+
+show ip bgp vpnv4 vrf CE2 summary
+
+show ip bgp vpnv4 vrf CE2 neighbors
+
+show ip cef
+
+show ip cef vrf CE2
+
+show ip cef
 
 !CE1 summary commands
 
