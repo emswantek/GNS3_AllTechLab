@@ -1,0 +1,123 @@
+!--START OF DC-SW1 OUTPUT--!
+
+DC-SW1#show version | i Ver|file
+Cisco IOS Software, vios_l2 Software (vios_l2-ADVENTERPRISEK9-M), Version 15.2(CML_NIGHTLY_20180619)FLO_DSGS7, EARLY DEPLOYMENT DEVELOPMENT BUILD, synced to  V152_6_0_81_E
+System image file is "flash0:/vios_l2-adventerprisek9-m"
+DC-SW1#
+DC-SW1#show int description | e down
+Interface                      Status         Protocol Description
+Gi2/2                          up             up       R2
+Gi2/3                          up             up       R3
+Gi3/1                          up             up       Trunk-to-DC-VPC-SW1
+Gi3/2                          up             up       Trunk-to-DC-VPC-SW2
+Lo0                            up             up
+Po11                           up             up       Link_to_DC-VPC-SWs
+
+DC-SW1#
+DC-SW1#show ip int brief | exclude unassigned
+Interface              IP-Address      OK? Method Status                Protocol
+Loopback0              172.31.255.6    YES NVRAM  up                    up
+
+DC-SW1#
+DC-SW1#show int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0                        notconnect   1          a-full   auto RJ45
+Gi0/1                        notconnect   1          a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0                        notconnect   1          a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2     R2                 connected    trunk      a-full   auto RJ45
+Gi2/3     R3                 connected    trunk      a-full   auto RJ45
+Gi3/0                        notconnect   1          a-full   auto RJ45
+Gi3/1     Trunk-to-DC-VPC-SW connected    trunk      a-full   auto RJ45
+Gi3/2     Trunk-to-DC-VPC-SW connected    trunk      a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+Po11      Link_to_DC-VPC-SWs connected    trunk      a-full   auto
+DC-SW1#
+DC-SW1#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gi0/0, Gi0/1, Gi0/2, Gi0/3
+                                                Gi1/0, Gi1/1, Gi1/2, Gi1/3
+                                                Gi2/0, Gi2/1, Gi3/0, Gi3/3
+254  Transit-R2-R3                    active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+DC-SW1#
+DC-SW1#show spanning-tree summary
+Switch is in rapid-pvst mode
+Root bridge for: none
+Extended system ID                      is enabled
+Portfast Default                        is disabled
+Portfast Edge BPDU Guard Default        is disabled
+Portfast Edge BPDU Filter Default       is disabled
+Loopguard Default                       is disabled
+PVST Simulation Default                 is enabled but inactive in rapid-pvst mode
+Bridge Assurance                        is enabled
+EtherChannel misconfig guard            is enabled
+Configured Pathcost method used is short
+UplinkFast                              is disabled
+BackboneFast                            is disabled
+
+Name                   Blocking Listening Learning Forwarding STP Active
+---------------------- -------- --------- -------- ---------- ----------
+VLAN0001                     0         0        0         15         15
+VLAN0254                     0         0        0          3          3
+---------------------- -------- --------- -------- ---------- ----------
+2 vlans                      0         0        0         18         18
+DC-SW1#
+DC-SW1#show spanning-tree root
+
+                                        Root    Hello Max Fwd
+Vlan                   Root ID          Cost    Time  Age Dly  Root Port
+---------------- -------------------- --------- ----- --- ---  ------------
+VLAN0001         32768 0c08.fc50.0007         3    2   20  15  Po11
+VLAN0254         32768 0c08.fc50.0007         3    2   20  15  Po11
+DC-SW1#
+DC-SW1#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+EIGRP-R2         Gig 2/2           166               R    7206VXR   Gig 1/0
+EIGRP-R3         Gig 2/3           159               R    7206VXR   Gig 6/0
+DC-VPC-SW2(976MYWRI6UU)
+                 Gig 3/2           132            R S I C N9K-9000v Eth 1/9
+DC-VPC-SW1(9CG64GSMIDD)
+                 Gig 3/1           132            R S I C N9K-9000v Eth 1/9
+
+Total cdp entries displayed : 4
+DC-SW1#
+DC-SW1#show vtp status
+VTP Version capable             : 1 to 3
+VTP version running             : 1
+VTP Domain Name                 :
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : 0c7f.9719.8000
+Configuration last modified by 0.0.0.0 at 11-11-25 19:26:49
+Local updater ID is 172.31.255.6 on interface Lo0 (first layer3 interface found)
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Maximum VLANs supported locally   : 1005
+Number of existing VLANs          : 6
+Configuration Revision            : 3
+MD5 digest                        : 0xD3 0x56 0x83 0xE9 0xBA 0x1F 0x07 0xFC
+                                    0xF7 0x8E 0x9E 0x78 0xBC 0xFD 0x9E 0xE5
+DC-SW1#
+DC-SW1#show run | include gateway
+ip default-gateway 10.172.172.1
+
+!--END OF DC-SW1 OUTPUT--!

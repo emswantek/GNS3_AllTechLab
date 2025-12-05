@@ -120,9 +120,109 @@ show cdp neighbors
 
 term leng 0
 
+show version | i Ver|file
+
+show int description | e down
+
+show ip int brief | exclude unassigned
+
+show int status
+
+show vlan brief
+
+show spanning-tree summary
+
+show spanning-tree root
+
+show cdp neighbors
+
+show vtp status
+
+show run | include gateway
+
+
 !LAN2, DC-VPC-SW1, DC-VPC-SW2 verification commands
+
+term leng 0
+
+show version
+
+show feature | exclude disabled
+
+show int status
+
+show ip int brief
+
+show vpc brief
+
+show vpc consistency-parameters vpc 11
+
+show vpc consistency-parameters vpc 12
+
+show vpc consistency-parameters vpc 13
+
+show spanning-tree
+
+show spanning-tree mst Configuration
+
+show run | section router
+
+show ip route
+
+show cdp neighbors
+
+show hsrp
+
+show mac address-table
 
 !LAN2, LAN2-MSTP-SW1, LAN2-MSTP-SW2, LAN2-MSTP-SW3, LAN2-MSTP-SW4 verification commands 
 
+term leng 0
+
+show version | i Ver|file
+
+show int description | e down
+
+show ip int brief | exclude unassigned
+
+show int status
+
+show vlan brief
+
+show spanning-tree summary
+
+show spanning-tree root
+
+show spanning-tree mst
+
+show cdp neighbors
+
+show vtp status
+
+show run | include gateway
+
+
 !LAN2, LAN2-ACCESS-SW1, LAN2-ACCESS-SW2, LAN2-ACCESS-SW3 verification commands
 
+
+term leng 0
+
+show version | i Ver|file
+
+show int description | e down
+
+show ip int brief | exclude unassigned
+
+show int status
+
+show vlan brief
+
+show spanning-tree summary
+
+show spanning-tree root
+
+show cdp neighbors
+
+show vtp status
+
+show run | include gateway

@@ -1,0 +1,726 @@
+!--START OF LAN2-MSTP-SW1 OUTPUT--!
+
+LAN2-MSTP-SW1#show version | i Ver|file
+Cisco IOS Software, vios_l2 Software (vios_l2-ADVENTERPRISEK9-M), Version 15.2(CML_NIGHTLY_20180619)FLO_DSGS7, EARLY DEPLOYMENT DEVELOPMENT BUILD, synced to  V152_6_0_81_E
+System image file is "flash0:/vios_l2-adventerprisek9-m"
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show int description | e down
+Interface                      Status         Protocol Description
+Gi0/0                          up             up       LAN2-MSTP-SW2
+Gi0/1                          up             up       LAN2-MSTP-SW4
+Gi1/0                          up             up       SERVER1
+Gi3/0                          up             up       DC-VPC-SW1
+Gi3/1                          up             up       DC-VPC-SW2
+Lo0                            up             up
+Po12                           up             up       vPC Switches e1/6
+Vl251                          up             up       NET-MGMT-VLAN
+
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show ip int brief | exclude unassigned
+Interface              IP-Address      OK? Method Status                Protocol
+Loopback0              172.31.255.11   YES NVRAM  up                    up
+Vlan251                172.31.251.11   YES NVRAM  up                    up
+
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0     LAN2-MSTP-SW2      connected    trunk      a-full   auto RJ45
+Gi0/1     LAN2-MSTP-SW4      connected    trunk      a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0     SERVER1            connected    trunk      a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2                        notconnect   1          a-full   auto RJ45
+Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi3/0     DC-VPC-SW1         connected    trunk      a-full   auto RJ45
+Gi3/1     DC-VPC-SW2         connected    trunk      a-full   auto RJ45
+Gi3/2                        notconnect   1          a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+Po12      vPC Switches e1/6  connected    trunk      a-full   auto
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gi0/2, Gi0/3, Gi1/1, Gi1/2
+                                                Gi1/3, Gi2/0, Gi2/1, Gi2/2
+                                                Gi2/3, Gi3/2, Gi3/3
+241  LAN2-SEGMENT-1                   active
+242  LAN2-SEGMENT-2                   active
+243  LAN2-SEGMENT-3                   active
+251  NET-MGMT-VLAN                    active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show spanning-tree summary
+Switch is in mst mode (IEEE Standard)
+Root bridge for: none
+Extended system ID                      is enabled
+Portfast Default                        is disabled
+Portfast Edge BPDU Guard Default        is disabled
+Portfast Edge BPDU Filter Default       is disabled
+Loopguard Default                       is disabled
+PVST Simulation                         is enabled
+Bridge Assurance                        is enabled
+EtherChannel misconfig guard            is enabled
+Configured Pathcost method used is short (Operational value is long)
+UplinkFast                              is disabled
+BackboneFast                            is disabled
+
+Name                   Blocking Listening Learning Forwarding STP Active
+---------------------- -------- --------- -------- ---------- ----------
+MST0                         0         0        0         15         15
+MST1                         0         0        0          4          4
+MST2                         1         0        0          3          4
+---------------------- -------- --------- -------- ---------- ----------
+3 msts                       1         0        0         22         23
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show spanning-tree root
+
+                                        Root    Hello Max Fwd
+MST Instance           Root ID          Cost    Time  Age Dly  Root Port
+---------------- -------------------- --------- ----- --- ---  ------------
+MST0             32768 0c08.fc50.0007         0    2   20  15  Po12
+MST1              4097 0c08.fc50.0007     20000    2   20  15  Po12
+MST2              4098 0c08.fc50.0007     20000    2   20  15  Po12
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show spanning-tree mst
+
+##### MST0    vlans mapped:   1-240,244-250,252-4094
+Bridge        address 0cbc.46ad.0000  priority      32768 (32768 sysid 0)
+Root          address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+              port    Po12            path cost     0
+Regional Root address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+                                      internal cost 20000     rem hops 18
+Operational   hello time 2 , forward delay 15, max age 20, txholdcount 6
+Configured    hello time 2 , forward delay 15, max age 20, max hops    20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+Gi0/2            Desg FWD 20000     128.3    P2p
+Gi0/3            Desg FWD 20000     128.4    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p
+Gi1/1            Desg FWD 20000     128.6    P2p
+Gi1/2            Desg FWD 20000     128.7    P2p
+Gi1/3            Desg FWD 20000     128.8    P2p
+Gi2/0            Desg FWD 20000     128.9    P2p
+Gi2/1            Desg FWD 20000     128.10   P2p
+Gi2/2            Desg FWD 20000     128.11   P2p
+Gi2/3            Desg FWD 20000     128.12   P2p
+Gi3/2            Desg FWD 20000     128.15   P2p
+Gi3/3            Desg FWD 20000     128.16   P2p
+Po12             Root FWD 10000     128.65   P2p
+
+##### MST1    vlans mapped:   241-242
+Bridge        address 0cbc.46ad.0000  priority      8193  (8192 sysid 1)
+Root          address 0c08.fc50.0007  priority      4097  (4096 sysid 1)
+              port    Po12            cost          20000     rem hops 18
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p
+Po12             Root FWD 10000     128.65   P2p
+
+##### MST2    vlans mapped:   243,251
+Bridge        address 0cbc.46ad.0000  priority      16386 (16384 sysid 2)
+Root          address 0c08.fc50.0007  priority      4098  (4096 sysid 2)
+              port    Po12            cost          20000     rem hops 18
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Altn BLK 20000     128.2    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p
+Po12             Root FWD 10000     128.65   P2p
+
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+DC-VPC-SW2(976MYWRI6UU)
+                 Gig 3/1           163            R S I C N9K-9000v Eth 1/6
+DC-VPC-SW1(9CG64GSMIDD)
+                 Gig 3/0           163            R S I C N9K-9000v Eth 1/6
+LAN2-MSTP-SW4    Gig 0/1           164             R S I            Gig 0/1
+LAN2-MSTP-SW2    Gig 0/0           152             R S I            Gig 0/0
+
+Total cdp entries displayed : 4
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show vtp status
+VTP Version capable             : 1 to 3
+VTP version running             : 1
+VTP Domain Name                 :
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : 0cbc.46ad.8000
+Configuration last modified by 172.31.251.11 at 11-15-25 17:43:55
+Local updater ID is 172.31.251.11 on interface Vl251 (lowest numbered VLAN interface found)
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Maximum VLANs supported locally   : 1005
+Number of existing VLANs          : 9
+Configuration Revision            : 9
+MD5 digest                        : 0x54 0xF3 0x2F 0x8E 0xF5 0xDD 0x22 0x3E
+                                    0x13 0xE1 0x08 0xC2 0x92 0xF0 0xA6 0xCD
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show run | include gateway
+ip default-gateway 172.31.251.1
+
+!--END OF LAN2-MSTP-SW1 OUTPUT--!
+
+!--START OF LAN2-MSTP-SW2 OUTPUT--!
+
+LAN2-MSTP-SW2#show int description | e down
+Interface                      Status         Protocol Description
+Gi0/0                          up             up       LAN2-MSTP-SW1
+Gi0/1                          up             up       LAN2-MSTP-SW3
+Gi1/0                          up             up       LAN2-ACCESS-SW1
+Lo0                            up             up
+Vl251                          up             up       NET-MGMT-VLAN
+
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show ip int brief | exclude unassigned
+Interface              IP-Address      OK? Method Status                Protocol
+Loopback0              172.31.255.12   YES NVRAM  up                    up
+Vlan251                172.31.251.12   YES NVRAM  up                    up
+
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0     LAN2-MSTP-SW1      connected    trunk      a-full   auto RJ45
+Gi0/1     LAN2-MSTP-SW3      connected    trunk      a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0     LAN2-ACCESS-SW1    connected    trunk      a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2                        notconnect   1          a-full   auto RJ45
+Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi3/0                        notconnect   1          a-full   auto RJ45
+Gi3/1                        notconnect   1          a-full   auto RJ45
+Gi3/2                        notconnect   1          a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gi0/2, Gi0/3, Gi1/1, Gi1/2
+                                                Gi1/3, Gi2/0, Gi2/1, Gi2/2
+                                                Gi2/3, Gi3/0, Gi3/1, Gi3/2
+                                                Gi3/3
+241  LAN2-SEGMENT-1                   active
+242  LAN2-SEGMENT-2                   active
+243  LAN2-SEGMENT-3                   active
+251  NET-MGMT-VLAN                    active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show spanning-tree summary
+Switch is in mst mode (IEEE Standard)
+Root bridge for: none
+Extended system ID                      is enabled
+Portfast Default                        is disabled
+Portfast Edge BPDU Guard Default        is disabled
+Portfast Edge BPDU Filter Default       is disabled
+Loopguard Default                       is disabled
+PVST Simulation                         is enabled
+Bridge Assurance                        is enabled
+EtherChannel misconfig guard            is enabled
+Configured Pathcost method used is short (Operational value is long)
+UplinkFast                              is disabled
+BackboneFast                            is disabled
+
+Name                   Blocking Listening Learning Forwarding STP Active
+---------------------- -------- --------- -------- ---------- ----------
+MST0                         1         0        0         15         16
+MST1                         0         0        0          3          3
+MST2                         1         0        0          2          3
+---------------------- -------- --------- -------- ---------- ----------
+3 msts                       2         0        0         20         22
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show spanning-tree root
+
+                                        Root    Hello Max Fwd
+MST Instance           Root ID          Cost    Time  Age Dly  Root Port
+---------------- -------------------- --------- ----- --- ---  ------------
+MST0             32768 0c08.fc50.0007         0    2   20  15  Gi0/0
+MST1              4097 0c08.fc50.0007     40000    2   20  15  Gi0/0
+MST2              4098 0c08.fc50.0007     40000    2   20  15  Gi0/0
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show spanning-tree mst
+
+##### MST0    vlans mapped:   1-240,244-250,252-4094
+Bridge        address 0c2c.6ab4.0000  priority      32768 (32768 sysid 0)
+Root          address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+              port    Gi0/0           path cost     0
+Regional Root address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+                                      internal cost 40000     rem hops 17
+Operational   hello time 2 , forward delay 15, max age 20, txholdcount 6
+Configured    hello time 2 , forward delay 15, max age 20, max hops    20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Root FWD 20000     128.1    P2p
+Gi0/1            Altn BLK 20000     128.2    P2p
+Gi0/2            Desg FWD 20000     128.3    P2p
+Gi0/3            Desg FWD 20000     128.4    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+Gi1/1            Desg FWD 20000     128.6    P2p
+Gi1/2            Desg FWD 20000     128.7    P2p
+Gi1/3            Desg FWD 20000     128.8    P2p
+Gi2/0            Desg FWD 20000     128.9    P2p
+Gi2/1            Desg FWD 20000     128.10   P2p
+Gi2/2            Desg FWD 20000     128.11   P2p
+Gi2/3            Desg FWD 20000     128.12   P2p
+Gi3/0            Desg FWD 20000     128.13   P2p
+Gi3/1            Desg FWD 20000     128.14   P2p
+Gi3/2            Desg FWD 20000     128.15   P2p
+Gi3/3            Desg FWD 20000     128.16   P2p
+
+##### MST1    vlans mapped:   241-242
+Bridge        address 0c2c.6ab4.0000  priority      8193  (8192 sysid 1)
+Root          address 0c08.fc50.0007  priority      4097  (4096 sysid 1)
+              port    Gi0/0           cost          40000     rem hops 17
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Root FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+
+##### MST2    vlans mapped:   243,251
+Bridge        address 0c2c.6ab4.0000  priority      16386 (16384 sysid 2)
+Root          address 0c08.fc50.0007  priority      4098  (4096 sysid 2)
+              port    Gi0/0           cost          40000     rem hops 17
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Root FWD 20000     128.1    P2p
+Gi0/1            Altn BLK 20000     128.2    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+LAN2-ACCESS-SW1  Gig 1/0           168             R S I            Gig 1/0
+LAN2-MSTP-SW3    Gig 0/1           142             R S I            Gig 0/0
+LAN2-MSTP-SW1    Gig 0/0           135              S I             Gig 0/0
+
+Total cdp entries displayed : 3
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show vtp status
+VTP Version capable             : 1 to 3
+VTP version running             : 1
+VTP Domain Name                 :
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : 0c2c.6ab4.8000
+Configuration last modified by 172.31.251.12 at 11-15-25 17:54:13
+Local updater ID is 172.31.251.12 on interface Vl251 (lowest numbered VLAN interface found)
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Maximum VLANs supported locally   : 1005
+Number of existing VLANs          : 9
+Configuration Revision            : 8
+MD5 digest                        : 0x72 0xEC 0xEF 0x79 0xAA 0x9F 0x5C 0x0B
+                                    0x9B 0xF7 0xA3 0xA0 0x9B 0x1C 0x99 0x5E
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show run | include gateway
+ip default-gateway 172.31.251.1
+
+!--END OF LAN2-MSTP-SW2 OUTPUT--!
+
+!--START OF LAN2-MSTP-SW3 OUTPUT--!
+
+LAN2-MSTP-SW3#show version | i Ver|file
+Cisco IOS Software, vios_l2 Software (vios_l2-ADVENTERPRISEK9-M), Version 15.2(CML_NIGHTLY_20180619)FLO_DSGS7, EARLY DEPLOYMENT DEVELOPMENT BUILD, synced to  V152_6_0_81_E
+System image file is "flash0:/vios_l2-adventerprisek9-m"
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show int description | e down
+Interface                      Status         Protocol Description
+Gi0/0                          up             up       LAN2-MSTP-SW2
+Gi0/1                          up             up       LAN2-MSTP-SW4
+Gi1/0                          up             up       LAN2-ACCESS-SW2
+Lo0                            up             up
+Vl251                          up             up       NET-MGMT-VLAN
+
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show ip int brief | exclude unassigned
+Interface              IP-Address      OK? Method Status                Protocol
+Loopback0              172.31.255.13   YES NVRAM  up                    up
+Vlan251                172.31.251.13   YES NVRAM  up                    up
+
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0     LAN2-MSTP-SW2      connected    trunk      a-full   auto RJ45
+Gi0/1     LAN2-MSTP-SW4      connected    trunk      a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0     LAN2-ACCESS-SW2    connected    trunk      a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2                        notconnect   1          a-full   auto RJ45
+Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi3/0                        notconnect   1          a-full   auto RJ45
+Gi3/1                        notconnect   1          a-full   auto RJ45
+Gi3/2                        notconnect   1          a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gi0/2, Gi0/3, Gi1/1, Gi1/2
+                                                Gi1/3, Gi2/0, Gi2/1, Gi2/2
+                                                Gi2/3, Gi3/0, Gi3/1, Gi3/2
+                                                Gi3/3
+241  LAN2-SEGMENT-1                   active
+242  LAN2-SEGMENT-2                   active
+243  LAN2-SEGMENT-3                   active
+251  NET-MGMT-VLAN                    active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show spanning-tree summary
+Switch is in mst mode (IEEE Standard)
+Root bridge for: none
+Extended system ID                      is enabled
+Portfast Default                        is disabled
+Portfast Edge BPDU Guard Default        is disabled
+Portfast Edge BPDU Filter Default       is disabled
+Loopguard Default                       is disabled
+PVST Simulation                         is enabled
+Bridge Assurance                        is enabled
+EtherChannel misconfig guard            is enabled
+Configured Pathcost method used is short (Operational value is long)
+UplinkFast                              is disabled
+BackboneFast                            is disabled
+
+Name                   Blocking Listening Learning Forwarding STP Active
+---------------------- -------- --------- -------- ---------- ----------
+MST0                         0         0        0         16         16
+MST1                         1         0        0          2          3
+MST2                         0         0        0          3          3
+---------------------- -------- --------- -------- ---------- ----------
+3 msts                       1         0        0         21         22
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show spanning-tree root
+
+                                        Root    Hello Max Fwd
+MST Instance           Root ID          Cost    Time  Age Dly  Root Port
+---------------- -------------------- --------- ----- --- ---  ------------
+MST0             32768 0c08.fc50.0007         0    2   20  15  Gi0/1
+MST1              4097 0c08.fc50.0007     40000    2   20  15  Gi0/1
+MST2              4098 0c08.fc50.0007     40000    2   20  15  Gi0/1
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show spanning-tree mst
+
+##### MST0    vlans mapped:   1-240,244-250,252-4094
+Bridge        address 0c13.567d.0000  priority      32768 (32768 sysid 0)
+Root          address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+              port    Gi0/1           path cost     0
+Regional Root address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+                                      internal cost 40000     rem hops 17
+Operational   hello time 2 , forward delay 15, max age 20, txholdcount 6
+Configured    hello time 2 , forward delay 15, max age 20, max hops    20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Root FWD 20000     128.2    P2p
+Gi0/2            Desg FWD 20000     128.3    P2p
+Gi0/3            Desg FWD 20000     128.4    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+Gi1/1            Desg FWD 20000     128.6    P2p
+Gi1/2            Desg FWD 20000     128.7    P2p
+Gi1/3            Desg FWD 20000     128.8    P2p
+Gi2/0            Desg FWD 20000     128.9    P2p
+Gi2/1            Desg FWD 20000     128.10   P2p
+Gi2/2            Desg FWD 20000     128.11   P2p
+Gi2/3            Desg FWD 20000     128.12   P2p
+Gi3/0            Desg FWD 20000     128.13   P2p
+Gi3/1            Desg FWD 20000     128.14   P2p
+Gi3/2            Desg FWD 20000     128.15   P2p
+Gi3/3            Desg FWD 20000     128.16   P2p
+
+##### MST1    vlans mapped:   241-242
+Bridge        address 0c13.567d.0000  priority      16385 (16384 sysid 1)
+Root          address 0c08.fc50.0007  priority      4097  (4096 sysid 1)
+              port    Gi0/1           cost          40000     rem hops 17
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Altn BLK 20000     128.1    P2p
+Gi0/1            Root FWD 20000     128.2    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+
+##### MST2    vlans mapped:   243,251
+Bridge        address 0c13.567d.0000  priority      8194  (8192 sysid 2)
+Root          address 0c08.fc50.0007  priority      4098  (4096 sysid 2)
+              port    Gi0/1           cost          40000     rem hops 17
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Root FWD 20000     128.2    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+LAN2-ACCESS-SW2  Gig 1/0           132             R S I            Gig 1/0
+LAN2-MSTP-SW4    Gig 0/1           140             R S I            Gig 0/0
+LAN2-MSTP-SW2    Gig 0/0           175             R S I            Gig 0/1
+
+Total cdp entries displayed : 3
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show vtp status
+VTP Version capable             : 1 to 3
+VTP version running             : 1
+VTP Domain Name                 :
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : 0c13.567d.8000
+Configuration last modified by 172.31.251.13 at 11-15-25 17:51:44
+Local updater ID is 172.31.251.13 on interface Vl251 (lowest numbered VLAN interface found)
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Maximum VLANs supported locally   : 1005
+Number of existing VLANs          : 9
+Configuration Revision            : 8
+MD5 digest                        : 0xB4 0x41 0x3C 0x9B 0xBD 0x8F 0xE7 0x77
+                                    0x87 0xE7 0x3A 0x05 0x63 0xCD 0x5C 0x68
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show run | include gateway
+ip default-gateway 172.31.251.1
+
+!--END OF LAN2-MSTP-SW3 OUTPUT--!
+
+!--START OF LAN2-MSTP-SW4 OUTPUT--!
+
+LAN2-MSTP-SW4#show version | i Ver|file
+Cisco IOS Software, vios_l2 Software (vios_l2-ADVENTERPRISEK9-M), Version 15.2(CML_NIGHTLY_20180619)FLO_DSGS7, EARLY DEPLOYMENT DEVELOPMENT BUILD, synced to  V152_6_0_81_E
+System image file is "flash0:/vios_l2-adventerprisek9-m"
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show int description | e down
+Interface                      Status         Protocol Description
+Gi0/0                          up             up       LAN2-MSTP-SW3
+Gi0/1                          up             up       LAN2-MSTP-SW1
+Gi1/0                          up             up       LAN2-ACCESS-SW3
+Gi3/0                          up             up       DC-VPC-SW1
+Gi3/1                          up             up       DC-VPC-SW2
+Lo0                            up             up
+Po13                           up             up       vPC Switches e1/7
+Vl251                          up             up       NET-MGMT-VLAN
+
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show ip int brief | exclude unassigned
+Interface              IP-Address      OK? Method Status                Protocol
+Loopback0              172.31.255.14   YES NVRAM  up                    up
+Vlan251                172.31.251.14   YES NVRAM  up                    up
+
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show int status
+
+Port      Name               Status       Vlan       Duplex  Speed Type
+Gi0/0     LAN2-MSTP-SW3      connected    trunk      a-full   auto RJ45
+Gi0/1     LAN2-MSTP-SW1      connected    trunk      a-full   auto RJ45
+Gi0/2                        notconnect   1          a-full   auto RJ45
+Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi1/0     LAN2-ACCESS-SW3    connected    trunk      a-full   auto RJ45
+Gi1/1                        notconnect   1          a-full   auto RJ45
+Gi1/2                        notconnect   1          a-full   auto RJ45
+Gi1/3                        notconnect   1          a-full   auto RJ45
+Gi2/0                        notconnect   1          a-full   auto RJ45
+Gi2/1                        notconnect   1          a-full   auto RJ45
+Gi2/2                        notconnect   1          a-full   auto RJ45
+Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi3/0     DC-VPC-SW1         connected    trunk      a-full   auto RJ45
+Gi3/1     DC-VPC-SW2         connected    trunk      a-full   auto RJ45
+Gi3/2                        notconnect   1          a-full   auto RJ45
+Gi3/3                        notconnect   1          a-full   auto RJ45
+Po13      vPC Switches e1/7  connected    trunk      a-full   auto
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show vlan brief
+
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active    Gi0/2, Gi0/3, Gi1/1, Gi1/2
+                                                Gi1/3, Gi2/0, Gi2/1, Gi2/2
+                                                Gi2/3, Gi3/2, Gi3/3
+241  LAN2-SEGMENT-1                   active
+242  LAN2-SEGMENT-2                   active
+243  LAN2-SEGMENT-3                   active
+251  NET-MGMT-VLAN                    active
+1002 fddi-default                     act/unsup
+1003 token-ring-default               act/unsup
+1004 fddinet-default                  act/unsup
+1005 trnet-default                    act/unsup
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show spanning-tree summary
+Switch is in mst mode (IEEE Standard)
+Root bridge for: none
+Extended system ID                      is enabled
+Portfast Default                        is disabled
+Portfast Edge BPDU Guard Default        is disabled
+Portfast Edge BPDU Filter Default       is disabled
+Loopguard Default                       is disabled
+PVST Simulation                         is enabled
+Bridge Assurance                        is enabled
+EtherChannel misconfig guard            is enabled
+Configured Pathcost method used is short (Operational value is long)
+UplinkFast                              is disabled
+BackboneFast                            is disabled
+
+Name                   Blocking Listening Learning Forwarding STP Active
+---------------------- -------- --------- -------- ---------- ----------
+MST0                         1         0        0         14         15
+MST1                         1         0        0          3          4
+MST2                         0         0        0          4          4
+---------------------- -------- --------- -------- ---------- ----------
+3 msts                       2         0        0         21         23
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show spanning-tree root
+
+                                        Root    Hello Max Fwd
+MST Instance           Root ID          Cost    Time  Age Dly  Root Port
+---------------- -------------------- --------- ----- --- ---  ------------
+MST0             32768 0c08.fc50.0007         0    2   20  15  Po13
+MST1              4097 0c08.fc50.0007     20000    2   20  15  Po13
+MST2              4098 0c08.fc50.0007     20000    2   20  15  Po13
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show spanning-tree mst
+
+##### MST0    vlans mapped:   1-240,244-250,252-4094
+Bridge        address 0cf3.9138.0000  priority      32768 (32768 sysid 0)
+Root          address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+              port    Po13            path cost     0
+Regional Root address 0c08.fc50.0007  priority      32768 (32768 sysid 0)
+                                      internal cost 20000     rem hops 18
+Operational   hello time 2 , forward delay 15, max age 20, txholdcount 6
+Configured    hello time 2 , forward delay 15, max age 20, max hops    20
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Altn BLK 20000     128.2    P2p
+Gi0/2            Desg FWD 20000     128.3    P2p
+Gi0/3            Desg FWD 20000     128.4    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+Gi1/1            Desg FWD 20000     128.6    P2p
+Gi1/2            Desg FWD 20000     128.7    P2p
+Gi1/3            Desg FWD 20000     128.8    P2p
+Gi2/0            Desg FWD 20000     128.9    P2p
+Gi2/1            Desg FWD 20000     128.10   P2p
+Gi2/2            Desg FWD 20000     128.11   P2p
+Gi2/3            Desg FWD 20000     128.12   P2p
+Gi3/2            Desg FWD 20000     128.15   P2p
+Gi3/3            Desg FWD 20000     128.16   P2p
+Po13             Root FWD 10000     128.65   P2p
+
+##### MST1    vlans mapped:   241-242
+Bridge        address 0cf3.9138.0000  priority      16385 (16384 sysid 1)
+Root          address 0c08.fc50.0007  priority      4097  (4096 sysid 1)
+              port    Po13            cost          20000     rem hops 18
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Altn BLK 20000     128.2    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+Po13             Root FWD 10000     128.65   P2p
+
+##### MST2    vlans mapped:   243,251
+Bridge        address 0cf3.9138.0000  priority      8194  (8192 sysid 2)
+Root          address 0c08.fc50.0007  priority      4098  (4096 sysid 2)
+              port    Po13            cost          20000     rem hops 18
+
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- --------------------------------
+Gi0/0            Desg FWD 20000     128.1    P2p
+Gi0/1            Desg FWD 20000     128.2    P2p
+Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
+Po13             Root FWD 10000     128.65   P2p
+
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show cdp neighbors
+Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
+                  S - Switch, H - Host, I - IGMP, r - Repeater, P - Phone,
+                  D - Remote, C - CVTA, M - Two-port Mac Relay
+
+Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
+DC-VPC-SW2(976MYWRI6UU)
+                 Gig 3/1           157            R S I C N9K-9000v Eth 1/7
+LAN2-ACCESS-SW3  Gig 1/0           179             R S I            Gig 1/0
+DC-VPC-SW1(9CG64GSMIDD)
+                 Gig 3/0           157            R S I C N9K-9000v Eth 1/7
+LAN2-MSTP-SW3    Gig 0/0           175             R S I            Gig 0/1
+LAN2-MSTP-SW1    Gig 0/1           139              S I             Gig 0/1
+
+Total cdp entries displayed : 5
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show vtp status
+VTP Version capable             : 1 to 3
+VTP version running             : 1
+VTP Domain Name                 :
+VTP Pruning Mode                : Disabled
+VTP Traps Generation            : Disabled
+Device ID                       : 0cf3.9138.8000
+Configuration last modified by 172.31.251.14 at 11-15-25 17:49:37
+Local updater ID is 172.31.251.14 on interface Vl251 (lowest numbered VLAN interface found)
+
+Feature VLAN:
+--------------
+VTP Operating Mode                : Server
+Maximum VLANs supported locally   : 1005
+Number of existing VLANs          : 9
+Configuration Revision            : 8
+MD5 digest                        : 0xD7 0x33 0xE5 0xE1 0xDD 0x75 0xF9 0x69
+                                    0x03 0x76 0x14 0x8A 0x81 0x91 0x11 0xF1
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show run | include gateway
+ip default-gateway 172.31.251.1
+
+!--END OF LAN2-MSTP-SW4 OUTPUT--!
