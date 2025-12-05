@@ -226,3 +226,40 @@ show cdp neighbors
 show vtp status
 
 show run | include gateway
+
+!ISP-CORE-1 ISP-PE-1 ISP-PE-2 ISP-PE-3 ISP-PE-4 verification commands
+
+term length 0
+
+show ver | i Ver|file
+
+show int description | e down
+
+show ip int brief | exclude admin
+
+show run | s router
+
+show ip protocols
+
+show ip protocols vrf CE1
+
+show ip protocols vrf CE2 
+
+show ip route
+
+show ip route vrf CE1
+
+show ip route vrf CE2
+
+show mpls ldp binding
+
+show mpls interfaces
+
+show isis topology
+
+show ip cef
+
+show ip arp
+
+show cdp neighbors
+
