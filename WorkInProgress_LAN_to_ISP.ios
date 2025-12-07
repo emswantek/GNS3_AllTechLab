@@ -611,3 +611,13 @@ copy run start
 | LAN2-MSTP-SW2 | 172.31.255.12/32 | mgmt                        |
 | LAN2-MSTP-SW3 | 172.31.255.13/32 | mgmt                        |
 | LAN2-MSTP-SW4 | 172.31.255.14/32 | mgmt                        |
+
+
+
+
+https://www.calcip.com/route-summarization/172.16.10.0-172.16.11.0-172.16.22.0-172.16.33.0
+
+https://www.calcip.com/route-summarization/172.31.241.0-172.31.241.0-172.31.242.0-172.31.251.0-172.31.255.0
+
+https://www.calcip.com/route-summarization/172.21.0.0-172.22.0.0
+
