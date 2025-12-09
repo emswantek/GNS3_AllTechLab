@@ -4,20 +4,11 @@ I originally came up with this when I was working towards my CCNP in 2023.
 Due to various other things going on I did not complete it then. 
 After more than a year I came back to it in October 2025 detirmined to complete it. 
 
+I utilized ChatGPT to help rapidly research implementation for protocols or device types I was not used to. I treated it like an "eager intern", one who was ready and willing to help, but was still prone to errors. I acted as the "lead network engineer" accepting/rejecting "my intern's" suggestions. This required me having a good understanding of what I was working with, and calling upon my eight years of experience in a Network Administrator role.
+
 
 (completed as of 12/9/25) Initial lab scenario: Two companies have gone through a merger and the network engineers need to have PCs at their two sites communicate.  While both are connected to the same MPLS provider, the organization does not want the downtime for the ISP to reconfigure the VRFs. Having more ports on their CE routers, the network engineers procure firewalls, and an internet circuit. LAN1 is newer and smaller while LAN2 consists of a much larger, and older enterprise with multiple protocols running. The network admins sit at PC3, and PC7 respectively.
 
-Future lab ideas with this topology: 
-Have an "internet" connected resource
-Use the server for DNS and other domain functions
-Make all devices managable by the admin PCs
-Secure devices with various publicly available hardening guidelines
-Acheive inter-site connectivity via MPLS
-Route maps
-ACLs
-QoS
-Add a network monitoring server (Maybe Nagios?)
-Software-Defined Networking
 
 
 Device list:  
@@ -50,9 +41,18 @@ ISP-PE-1, ISP-PE-2, ISP-PE-3, ISP-PE-4
 "Ineternet" ISP (default routing to Null0)
 INET-ISP-RTR
 
-
-
-
+Future lab ideas with this topology: 
+Have an "internet" connected resource
+Use the server for DNS and other domain functions
+Make all devices managable by the admin PCs
+Secure devices with various publicly available hardening guidelines
+Acheive inter-site connectivity via MPLS
+Route maps
+ACLs
+QoS
+Add a network monitoring server (Maybe Nagios?)
+Software-Defined Networking
+Nexus Fex
 
 
 
