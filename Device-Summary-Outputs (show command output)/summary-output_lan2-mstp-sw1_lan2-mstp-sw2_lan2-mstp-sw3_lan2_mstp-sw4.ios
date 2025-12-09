@@ -27,20 +27,20 @@ LAN2-MSTP-SW1#show int status
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     LAN2-MSTP-SW2      connected    trunk      a-full   auto RJ45
 Gi0/1     LAN2-MSTP-SW4      connected    trunk      a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
 Gi1/0     SERVER1            connected    trunk      a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
 Gi3/0     DC-VPC-SW1         connected    trunk      a-full   auto RJ45
 Gi3/1     DC-VPC-SW2         connected    trunk      a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 Po12      vPC Switches e1/6  connected    trunk      a-full   auto
 LAN2-MSTP-SW1#
 LAN2-MSTP-SW1#show vlan brief
@@ -76,11 +76,11 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-MST0                         0         0        0         15         15
+MST0                         0         0        0          4          4
 MST1                         0         0        0          4          4
 MST2                         1         0        0          3          4
 ---------------------- -------- --------- -------- ---------- ----------
-3 msts                       1         0        0         22         23
+3 msts                       1         0        0         11         12
 LAN2-MSTP-SW1#
 LAN2-MSTP-SW1#show spanning-tree root
 
@@ -106,18 +106,7 @@ Interface        Role Sts Cost      Prio.Nbr Type
 ---------------- ---- --- --------- -------- --------------------------------
 Gi0/0            Desg FWD 20000     128.1    P2p
 Gi0/1            Desg FWD 20000     128.2    P2p
-Gi0/2            Desg FWD 20000     128.3    P2p
-Gi0/3            Desg FWD 20000     128.4    P2p
 Gi1/0            Desg FWD 20000     128.5    P2p
-Gi1/1            Desg FWD 20000     128.6    P2p
-Gi1/2            Desg FWD 20000     128.7    P2p
-Gi1/3            Desg FWD 20000     128.8    P2p
-Gi2/0            Desg FWD 20000     128.9    P2p
-Gi2/1            Desg FWD 20000     128.10   P2p
-Gi2/2            Desg FWD 20000     128.11   P2p
-Gi2/3            Desg FWD 20000     128.12   P2p
-Gi3/2            Desg FWD 20000     128.15   P2p
-Gi3/3            Desg FWD 20000     128.16   P2p
 Po12             Root FWD 10000     128.65   P2p
 
 ##### MST1    vlans mapped:   241-242
@@ -155,8 +144,8 @@ DC-VPC-SW2(976MYWRI6UU)
                  Gig 3/1           163            R S I C N9K-9000v Eth 1/6
 DC-VPC-SW1(9CG64GSMIDD)
                  Gig 3/0           163            R S I C N9K-9000v Eth 1/6
-LAN2-MSTP-SW4    Gig 0/1           164             R S I            Gig 0/1
-LAN2-MSTP-SW2    Gig 0/0           152             R S I            Gig 0/0
+LAN2-MSTP-SW4    Gig 0/1           148             R S I            Gig 0/1
+LAN2-MSTP-SW2    Gig 0/0           125             R S I            Gig 0/0
 
 Total cdp entries displayed : 4
 LAN2-MSTP-SW1#
@@ -181,11 +170,44 @@ MD5 digest                        : 0x54 0xF3 0x2F 0x8E 0xF5 0xDD 0x22 0x3E
 LAN2-MSTP-SW1#
 LAN2-MSTP-SW1#show run | include gateway
 ip default-gateway 172.31.251.1
+LAN2-MSTP-SW1#
+LAN2-MSTP-SW1#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0026.f00c.0000    DYNAMIC     Po12
+   1    0c08.fc50.0007    DYNAMIC     Po12
+   1    0c08.fc50.000d    DYNAMIC     Po12
+   1    0c2c.6ab4.0000    DYNAMIC     Gi0/0
+   1    0c9f.43a5.0007    DYNAMIC     Po12
+   1    0c9f.43a5.000d    DYNAMIC     Po12
+   1    0cf3.9138.0001    DYNAMIC     Gi0/1
+   1    ca08.1912.00a8    DYNAMIC     Po12
+ 241    0000.0c07.acf1    DYNAMIC     Po12
+ 241    0c08.fc50.0007    DYNAMIC     Po12
+ 241    0c9f.43a5.0007    DYNAMIC     Po12
+ 242    0000.0c07.acf2    DYNAMIC     Po12
+ 242    0c08.fc50.0007    DYNAMIC     Po12
+ 242    0c9f.43a5.0007    DYNAMIC     Po12
+ 243    0000.0c07.acf3    DYNAMIC     Po12
+ 243    0c08.fc50.0007    DYNAMIC     Po12
+ 243    0c9f.43a5.0007    DYNAMIC     Po12
+ 251    0000.0c07.acfb    DYNAMIC     Po12
+ 251    0c08.fc50.0007    DYNAMIC     Po12
+ 251    0c68.265b.80fb    DYNAMIC     Gi0/0
+ 251    0c9f.43a5.0007    DYNAMIC     Po12
+Total Mac Addresses for this criterion: 21
 
 !--END OF LAN2-MSTP-SW1 OUTPUT--!
 
 !--START OF LAN2-MSTP-SW2 OUTPUT--!
 
+LAN2-MSTP-SW2#show version | i Ver|file
+Cisco IOS Software, vios_l2 Software (vios_l2-ADVENTERPRISEK9-M), Version 15.2(CML_NIGHTLY_20180619)FLO_DSGS7, EARLY DEPLOYMENT DEVELOPMENT BUILD, synced to  V152_6_0_81_E
+System image file is "flash0:/vios_l2-adventerprisek9-m"
+LAN2-MSTP-SW2#
 LAN2-MSTP-SW2#show int description | e down
 Interface                      Status         Protocol Description
 Gi0/0                          up             up       LAN2-MSTP-SW1
@@ -206,20 +228,20 @@ LAN2-MSTP-SW2#show int status
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     LAN2-MSTP-SW1      connected    trunk      a-full   auto RJ45
 Gi0/1     LAN2-MSTP-SW3      connected    trunk      a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
 Gi1/0     LAN2-ACCESS-SW1    connected    trunk      a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1                        notconnect   1          a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1                        disabled     1            auto   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 LAN2-MSTP-SW2#
 LAN2-MSTP-SW2#show vlan brief
 
@@ -255,11 +277,11 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-MST0                         1         0        0         15         16
+MST0                         1         0        0          2          3
 MST1                         0         0        0          3          3
 MST2                         1         0        0          2          3
 ---------------------- -------- --------- -------- ---------- ----------
-3 msts                       2         0        0         20         22
+3 msts                       2         0        0          7          9
 LAN2-MSTP-SW2#
 LAN2-MSTP-SW2#show spanning-tree root
 
@@ -285,20 +307,7 @@ Interface        Role Sts Cost      Prio.Nbr Type
 ---------------- ---- --- --------- -------- --------------------------------
 Gi0/0            Root FWD 20000     128.1    P2p
 Gi0/1            Altn BLK 20000     128.2    P2p
-Gi0/2            Desg FWD 20000     128.3    P2p
-Gi0/3            Desg FWD 20000     128.4    P2p
 Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
-Gi1/1            Desg FWD 20000     128.6    P2p
-Gi1/2            Desg FWD 20000     128.7    P2p
-Gi1/3            Desg FWD 20000     128.8    P2p
-Gi2/0            Desg FWD 20000     128.9    P2p
-Gi2/1            Desg FWD 20000     128.10   P2p
-Gi2/2            Desg FWD 20000     128.11   P2p
-Gi2/3            Desg FWD 20000     128.12   P2p
-Gi3/0            Desg FWD 20000     128.13   P2p
-Gi3/1            Desg FWD 20000     128.14   P2p
-Gi3/2            Desg FWD 20000     128.15   P2p
-Gi3/3            Desg FWD 20000     128.16   P2p
 
 ##### MST1    vlans mapped:   241-242
 Bridge        address 0c2c.6ab4.0000  priority      8193  (8192 sysid 1)
@@ -329,9 +338,9 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-LAN2-ACCESS-SW1  Gig 1/0           168             R S I            Gig 1/0
-LAN2-MSTP-SW3    Gig 0/1           142             R S I            Gig 0/0
-LAN2-MSTP-SW1    Gig 0/0           135              S I             Gig 0/0
+LAN2-ACCESS-SW1  Gig 1/0           179             R S I            Gig 1/0
+LAN2-MSTP-SW3    Gig 0/1           145             R S I            Gig 0/0
+LAN2-MSTP-SW1    Gig 0/0           173              S I             Gig 0/0
 
 Total cdp entries displayed : 3
 LAN2-MSTP-SW2#
@@ -356,6 +365,30 @@ MD5 digest                        : 0x72 0xEC 0xEF 0x79 0xAA 0x9F 0x5C 0x0B
 LAN2-MSTP-SW2#
 LAN2-MSTP-SW2#show run | include gateway
 ip default-gateway 172.31.251.1
+LAN2-MSTP-SW2#
+LAN2-MSTP-SW2#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0c68.265b.0004    DYNAMIC     Gi1/0
+   1    0cbc.46ad.0000    DYNAMIC     Gi0/0
+   1    ca08.1912.00a8    DYNAMIC     Gi0/0
+ 241    0000.0c07.acf1    DYNAMIC     Gi0/0
+ 241    0c08.fc50.0007    DYNAMIC     Gi0/0
+ 241    0c9f.43a5.0007    DYNAMIC     Gi0/0
+ 242    0000.0c07.acf2    DYNAMIC     Gi0/0
+ 242    0c08.fc50.0007    DYNAMIC     Gi0/0
+ 242    0c9f.43a5.0007    DYNAMIC     Gi0/0
+ 243    0000.0c07.acf3    DYNAMIC     Gi0/0
+ 243    0c08.fc50.0007    DYNAMIC     Gi0/0
+ 243    0c9f.43a5.0007    DYNAMIC     Gi0/0
+ 251    0000.0c07.acfb    DYNAMIC     Gi0/0
+ 251    0c08.fc50.0007    DYNAMIC     Gi0/0
+ 251    0c68.265b.80fb    DYNAMIC     Gi1/0
+ 251    0c9f.43a5.0007    DYNAMIC     Gi0/0
+Total Mac Addresses for this criterion: 16
 
 !--END OF LAN2-MSTP-SW2 OUTPUT--!
 
@@ -385,20 +418,20 @@ LAN2-MSTP-SW3#show int status
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     LAN2-MSTP-SW2      connected    trunk      a-full   auto RJ45
 Gi0/1     LAN2-MSTP-SW4      connected    trunk      a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
 Gi1/0     LAN2-ACCESS-SW2    connected    trunk      a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
-Gi3/0                        notconnect   1          a-full   auto RJ45
-Gi3/1                        notconnect   1          a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
+Gi3/0                        disabled     1            auto   auto RJ45
+Gi3/1                        disabled     1            auto   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 LAN2-MSTP-SW3#
 LAN2-MSTP-SW3#show vlan brief
 
@@ -434,11 +467,11 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-MST0                         0         0        0         16         16
+MST0                         0         0        0          3          3
 MST1                         1         0        0          2          3
 MST2                         0         0        0          3          3
 ---------------------- -------- --------- -------- ---------- ----------
-3 msts                       1         0        0         21         22
+3 msts                       1         0        0          8          9
 LAN2-MSTP-SW3#
 LAN2-MSTP-SW3#show spanning-tree root
 
@@ -464,20 +497,7 @@ Interface        Role Sts Cost      Prio.Nbr Type
 ---------------- ---- --- --------- -------- --------------------------------
 Gi0/0            Desg FWD 20000     128.1    P2p
 Gi0/1            Root FWD 20000     128.2    P2p
-Gi0/2            Desg FWD 20000     128.3    P2p
-Gi0/3            Desg FWD 20000     128.4    P2p
 Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
-Gi1/1            Desg FWD 20000     128.6    P2p
-Gi1/2            Desg FWD 20000     128.7    P2p
-Gi1/3            Desg FWD 20000     128.8    P2p
-Gi2/0            Desg FWD 20000     128.9    P2p
-Gi2/1            Desg FWD 20000     128.10   P2p
-Gi2/2            Desg FWD 20000     128.11   P2p
-Gi2/3            Desg FWD 20000     128.12   P2p
-Gi3/0            Desg FWD 20000     128.13   P2p
-Gi3/1            Desg FWD 20000     128.14   P2p
-Gi3/2            Desg FWD 20000     128.15   P2p
-Gi3/3            Desg FWD 20000     128.16   P2p
 
 ##### MST1    vlans mapped:   241-242
 Bridge        address 0c13.567d.0000  priority      16385 (16384 sysid 1)
@@ -508,9 +528,9 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
                   D - Remote, C - CVTA, M - Two-port Mac Relay
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
-LAN2-ACCESS-SW2  Gig 1/0           132             R S I            Gig 1/0
-LAN2-MSTP-SW4    Gig 0/1           140             R S I            Gig 0/0
-LAN2-MSTP-SW2    Gig 0/0           175             R S I            Gig 0/1
+LAN2-ACCESS-SW2  Gig 1/0           154             R S I            Gig 1/0
+LAN2-MSTP-SW4    Gig 0/1           141             R S I            Gig 0/0
+LAN2-MSTP-SW2    Gig 0/0           165             R S I            Gig 0/1
 
 Total cdp entries displayed : 3
 LAN2-MSTP-SW3#
@@ -535,6 +555,30 @@ MD5 digest                        : 0xB4 0x41 0x3C 0x9B 0xBD 0x8F 0xE7 0x77
 LAN2-MSTP-SW3#
 LAN2-MSTP-SW3#show run | include gateway
 ip default-gateway 172.31.251.1
+LAN2-MSTP-SW3#
+LAN2-MSTP-SW3#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0c2c.6ab4.0001    DYNAMIC     Gi0/0
+   1    0cb0.1457.0004    DYNAMIC     Gi1/0
+   1    0cf3.9138.0000    DYNAMIC     Gi0/1
+   1    ca08.1912.00a8    DYNAMIC     Gi0/1
+ 241    0000.0c07.acf1    DYNAMIC     Gi0/1
+ 241    0c08.fc50.0007    DYNAMIC     Gi0/1
+ 241    0c9f.43a5.0007    DYNAMIC     Gi0/1
+ 242    0000.0c07.acf2    DYNAMIC     Gi0/1
+ 242    0c08.fc50.0007    DYNAMIC     Gi0/1
+ 242    0c9f.43a5.0007    DYNAMIC     Gi0/1
+ 243    0000.0c07.acf3    DYNAMIC     Gi0/1
+ 243    0c08.fc50.0007    DYNAMIC     Gi0/1
+ 243    0c9f.43a5.0007    DYNAMIC     Gi0/1
+ 251    0000.0c07.acfb    DYNAMIC     Gi0/1
+ 251    0c08.fc50.0007    DYNAMIC     Gi0/1
+ 251    0c9f.43a5.0007    DYNAMIC     Gi0/1
+Total Mac Addresses for this criterion: 16
 
 !--END OF LAN2-MSTP-SW3 OUTPUT--!
 
@@ -567,20 +611,20 @@ LAN2-MSTP-SW4#show int status
 Port      Name               Status       Vlan       Duplex  Speed Type
 Gi0/0     LAN2-MSTP-SW3      connected    trunk      a-full   auto RJ45
 Gi0/1     LAN2-MSTP-SW1      connected    trunk      a-full   auto RJ45
-Gi0/2                        notconnect   1          a-full   auto RJ45
-Gi0/3                        notconnect   1          a-full   auto RJ45
+Gi0/2                        disabled     1            auto   auto RJ45
+Gi0/3                        disabled     1            auto   auto RJ45
 Gi1/0     LAN2-ACCESS-SW3    connected    trunk      a-full   auto RJ45
-Gi1/1                        notconnect   1          a-full   auto RJ45
-Gi1/2                        notconnect   1          a-full   auto RJ45
-Gi1/3                        notconnect   1          a-full   auto RJ45
-Gi2/0                        notconnect   1          a-full   auto RJ45
-Gi2/1                        notconnect   1          a-full   auto RJ45
-Gi2/2                        notconnect   1          a-full   auto RJ45
-Gi2/3                        notconnect   1          a-full   auto RJ45
+Gi1/1                        disabled     1            auto   auto RJ45
+Gi1/2                        disabled     1            auto   auto RJ45
+Gi1/3                        disabled     1            auto   auto RJ45
+Gi2/0                        disabled     1            auto   auto RJ45
+Gi2/1                        disabled     1            auto   auto RJ45
+Gi2/2                        disabled     1            auto   auto RJ45
+Gi2/3                        disabled     1            auto   auto RJ45
 Gi3/0     DC-VPC-SW1         connected    trunk      a-full   auto RJ45
 Gi3/1     DC-VPC-SW2         connected    trunk      a-full   auto RJ45
-Gi3/2                        notconnect   1          a-full   auto RJ45
-Gi3/3                        notconnect   1          a-full   auto RJ45
+Gi3/2                        disabled     1            auto   auto RJ45
+Gi3/3                        disabled     1            auto   auto RJ45
 Po13      vPC Switches e1/7  connected    trunk      a-full   auto
 LAN2-MSTP-SW4#
 LAN2-MSTP-SW4#show vlan brief
@@ -616,11 +660,11 @@ BackboneFast                            is disabled
 
 Name                   Blocking Listening Learning Forwarding STP Active
 ---------------------- -------- --------- -------- ---------- ----------
-MST0                         1         0        0         14         15
+MST0                         1         0        0          3          4
 MST1                         1         0        0          3          4
 MST2                         0         0        0          4          4
 ---------------------- -------- --------- -------- ---------- ----------
-3 msts                       2         0        0         21         23
+3 msts                       2         0        0         10         12
 LAN2-MSTP-SW4#
 LAN2-MSTP-SW4#show spanning-tree root
 
@@ -646,18 +690,7 @@ Interface        Role Sts Cost      Prio.Nbr Type
 ---------------- ---- --- --------- -------- --------------------------------
 Gi0/0            Desg FWD 20000     128.1    P2p
 Gi0/1            Altn BLK 20000     128.2    P2p
-Gi0/2            Desg FWD 20000     128.3    P2p
-Gi0/3            Desg FWD 20000     128.4    P2p
 Gi1/0            Desg FWD 20000     128.5    P2p Bound(PVST)
-Gi1/1            Desg FWD 20000     128.6    P2p
-Gi1/2            Desg FWD 20000     128.7    P2p
-Gi1/3            Desg FWD 20000     128.8    P2p
-Gi2/0            Desg FWD 20000     128.9    P2p
-Gi2/1            Desg FWD 20000     128.10   P2p
-Gi2/2            Desg FWD 20000     128.11   P2p
-Gi2/3            Desg FWD 20000     128.12   P2p
-Gi3/2            Desg FWD 20000     128.15   P2p
-Gi3/3            Desg FWD 20000     128.16   P2p
 Po13             Root FWD 10000     128.65   P2p
 
 ##### MST1    vlans mapped:   241-242
@@ -692,12 +725,12 @@ Capability Codes: R - Router, T - Trans Bridge, B - Source Route Bridge
 
 Device ID        Local Intrfce     Holdtme    Capability  Platform  Port ID
 DC-VPC-SW2(976MYWRI6UU)
-                 Gig 3/1           157            R S I C N9K-9000v Eth 1/7
-LAN2-ACCESS-SW3  Gig 1/0           179             R S I            Gig 1/0
+                 Gig 3/1           158            R S I C N9K-9000v Eth 1/7
+LAN2-ACCESS-SW3  Gig 1/0           163             R S I            Gig 1/0
 DC-VPC-SW1(9CG64GSMIDD)
-                 Gig 3/0           157            R S I C N9K-9000v Eth 1/7
-LAN2-MSTP-SW3    Gig 0/0           175             R S I            Gig 0/1
-LAN2-MSTP-SW1    Gig 0/1           139              S I             Gig 0/1
+                 Gig 3/0           158            R S I C N9K-9000v Eth 1/7
+LAN2-MSTP-SW3    Gig 0/0           168             R S I            Gig 0/1
+LAN2-MSTP-SW1    Gig 0/1           145              S I             Gig 0/1
 
 Total cdp entries displayed : 5
 LAN2-MSTP-SW4#
@@ -722,5 +755,33 @@ MD5 digest                        : 0xD7 0x33 0xE5 0xE1 0xDD 0x75 0xF9 0x69
 LAN2-MSTP-SW4#
 LAN2-MSTP-SW4#show run | include gateway
 ip default-gateway 172.31.251.1
+LAN2-MSTP-SW4#
+LAN2-MSTP-SW4#show mac address-table
+          Mac Address Table
+-------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0026.f00d.0000    DYNAMIC     Po13
+   1    0c08.fc50.0007    DYNAMIC     Po13
+   1    0c08.fc50.000e    DYNAMIC     Po13
+   1    0c13.567d.0001    DYNAMIC     Gi0/0
+   1    0c9f.43a5.0007    DYNAMIC     Po13
+   1    0c9f.43a5.000e    DYNAMIC     Po13
+   1    0ccc.77d6.0004    DYNAMIC     Gi1/0
+   1    ca08.1912.00a8    DYNAMIC     Po13
+ 241    0000.0c07.acf1    DYNAMIC     Po13
+ 241    0c08.fc50.0007    DYNAMIC     Po13
+ 241    0c9f.43a5.0007    DYNAMIC     Po13
+ 242    0000.0c07.acf2    DYNAMIC     Po13
+ 242    0c08.fc50.0007    DYNAMIC     Po13
+ 242    0c9f.43a5.0007    DYNAMIC     Po13
+ 243    0000.0c07.acf3    DYNAMIC     Po13
+ 243    0c08.fc50.0007    DYNAMIC     Po13
+ 243    0c9f.43a5.0007    DYNAMIC     Po13
+ 251    0000.0c07.acfb    DYNAMIC     Po13
+ 251    0c08.fc50.0007    DYNAMIC     Po13
+ 251    0c9f.43a5.0007    DYNAMIC     Po13
+Total Mac Addresses for this criterion: 20
 
 !--END OF LAN2-MSTP-SW4 OUTPUT--!
