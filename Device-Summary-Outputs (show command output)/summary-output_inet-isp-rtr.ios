@@ -67,12 +67,14 @@ Prefix               Next Hop             Interface
 INTERNET-ISP-RTR#
 INTERNET-ISP-RTR#show ip arp
 Protocol  Address          Age (min)  Hardware Addr   Type   Interface
-Internet  198.51.100.1          137   0c76.73f9.0002  ARPA   GigabitEthernet1/0
+Internet  198.51.100.1          186   0c76.73f9.0002  ARPA   GigabitEthernet1/0
 Internet  198.51.100.2            -   ca0a.084f.001c  ARPA   GigabitEthernet1/0
-Internet  203.0.113.1           137   0c8b.da6e.0002  ARPA   GigabitEthernet0/0
+Internet  203.0.113.1           186   0c8b.da6e.0002  ARPA   GigabitEthernet0/0
 Internet  203.0.113.2             -   ca0a.084f.0008  ARPA   GigabitEthernet0/0
 INTERNET-ISP-RTR#
 INTERNET-ISP-RTR#show cdp
 % CDP is not enabled
+INTERNET-ISP-RTR#
+
 
 !--END OF INTERNET-ISP-RTR OUTPUT--!
